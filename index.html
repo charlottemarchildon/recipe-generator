@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js">
+    </script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./assets/style.css" rel="stylesheet" />
+</head>
+
+<body style="text-align: center">
+    <div id="main-display">
+        <div>
+            <nav>
+                <a href="#"><img src="./assets/images/flavour-fusion-icon.png" id="icon"></a>
+                <ul id="nav-bar">
+                        <li class="nav-list"><a href="/">Login</a></li>
+                        <li class="nav-list"><a href="/">Submit</a></li>
+                        <li class="nav-list"><a href="/">Contact</a></li>
+                </ul>
+            </nav>
+            <div>
+                
+                <form id="recipe-form">
+                    <input type="text" class="typeahead" data-provide="typeahead"
+                        placeholder="Enter your desired dish" />
+                    <button type="submit" class="btn btn-dark">Search</button>
+                </form>
+                <div id="search-results">
+                </div>
+            </div>
+        </div>
+        <div>
+            sidebar
+        </div>
+    </div>
+
+    <script src="./assets/script.js"></script>
+</body>
+
+</html>
