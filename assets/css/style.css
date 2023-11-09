@@ -3,6 +3,7 @@
     text-decoration: none;
     justify-content: space-around;
     align-items: flex-end;
+    /*Changed nav-bar width to fit width of screen*/
     width: 1306px;
     position: relative;
 }
