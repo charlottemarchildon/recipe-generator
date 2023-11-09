@@ -1,3 +1,7 @@
+:root {
+    --nav-background-green: rgb(150, 188, 117);
+}
+
 #nav-bar {
     display: flex;
     text-decoration: none;
@@ -66,11 +70,30 @@ nav {
     display: flex;
     justify-content: space-between;
     margin: 10px;
-    background-color: rgb(150, 188, 117);
+    background-color: var(--nav-background-green);
     padding: 5px;
     align-items: center;
 }
 
+#login-title {
+    display: block;
+}
+
 .login-box {
-    margin-top: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    margin: 0;
+}
+
+#username-field,
+#password-field {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#submit-button {
+    border: solid var(--nav-background-green);
 }
