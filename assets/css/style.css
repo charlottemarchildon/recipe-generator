@@ -70,3 +70,8 @@ nav {
     padding: 5px;
     align-items: center;
 }
+
+.login-box {
+    text-align: center;
+    margin-top: 250px;
+}
