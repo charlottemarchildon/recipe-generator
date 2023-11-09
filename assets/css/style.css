@@ -3,9 +3,8 @@
     text-decoration: none;
     justify-content: space-around;
     align-items: flex-end;
-    width: 400px;
+    width: 1306px;
     position: relative;
-    /* top: 15px; */
 }
 
 #nav-bar li {
@@ -55,4 +54,18 @@ ul {
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+#icon {
+    max-width: 200px;
+    max-height: 60px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    background-color: rgb(150, 188, 117);
+    padding: 5px;
+    align-items: center;
 }
