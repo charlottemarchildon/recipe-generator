@@ -4,8 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe</title>
+    <link rel="stylesheet" href="recipe-style.css">
 </head>
 <body>
-    
+    <header>
+        <img class="logo" src="flavour-fusion.png" alt="A circular logo of a fork, spoon, and knife, on a board">
+        <div class="nav-bar">
+            <a>Home</a>
+            <a>Log in</a>
+            <a>Submit</a>
+            <a>Contact</a>
+        </div>
+    </header>
+    <main>
+        <div class="ingredients">
+            <h1>French Toast</h1> <!-- sections.name /-->
+            <div class="time-block">
+                <h2 id="time">Prep Time: 5 minutes</h2> <!--sections.prep_time_minutes-->
+                <h2 id="time">Cook Time: 10 minutes</h2> <!--cook_time_minutes-->
+            </div>
+            <img src="https://img.buzzfeed.com/thumbnailer-prod-us-east-1/video-api/assets/341495.jpg" alt=""> <!-- thumbnail_url -->
+            <p>This iconic dish is all about the details. While french toast might seem simple, 
+                looks can be deceiving. To get that perfectly crispy exterior and creamy, silky 
+                custard on the inside we spent weeks eating tons of butter, bread, and syrup to 
+                discover the best classic french toast recipe. The end result is indulgent, delicious, 
+                and most importantly, easy to make. What’s not to love?</p> <!--description-->
+            <div class="vid-bg"> 
+                <iframe src="https://s3.amazonaws.com/video-api-prod/assets/42109c902ae449bda59cebafa04745ca/BFV81893_FrenchToast_ADB_090821_Final_16x9_YT.mp4"></iframe>
+            </div>
+        </div>
+        <div class="side"> 
+            <div class="history">
+                <h2 class="history-title">Jump back into:</h2>
+                <div id="history-card"></div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
