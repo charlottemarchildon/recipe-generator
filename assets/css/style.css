@@ -92,7 +92,7 @@ nav {
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: solid rgb(171, 175, 179);
+    border: solid 2px rgb(171, 175, 179);
     border-radius: 10px;
     padding-left: 5px;
     padding-right: 5px;
@@ -100,7 +100,7 @@ nav {
 
 #submit-button {
     color: rgb(33,37,41);
-    border: solid var(--nav-background-green);
+    border: solid 2px var(--nav-background-green);
     border-radius: 10px;
     padding-left: 10px;
     padding-right: 10px;
