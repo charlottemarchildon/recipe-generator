@@ -26,12 +26,14 @@
         <div>
     </header>
     <section class="login-box text-center">
-        <h1 id="login-title">Log in</h1>
-        <form action="/login" method="post">
-            <input type="text" name="username" id="username-field" placeholder="Username">
-            <input type="password" name="password" id= "password-field" placeholder="Password">
-            <input type="submit" value="Login">
-        </form>
+        <div class="form-container">
+            <h1 id="login-title">Log in</h1>
+            <form action="/login" method="post">
+                <input type="text" name="username" id="username-field" placeholder="Username">
+                <input type="password" name="password" id="password-field" placeholder="Password">
+                <input type="submit" id="submit-button" value="Login">
+            </form>
+        </div>
     </section>
     <script src="./assets/js/script.js"></script>
 </body>
