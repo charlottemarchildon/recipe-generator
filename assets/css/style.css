@@ -95,5 +95,16 @@ nav {
 }
 
 #submit-button {
+    color: rgb(33,37,41);
     border: solid var(--nav-background-green);
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#submit-button:hover {
+    color: rgb(78, 85, 92);
+    cursor: pointer;
 }
