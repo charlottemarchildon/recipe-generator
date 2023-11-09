@@ -75,10 +75,6 @@ nav {
     align-items: center;
 }
 
-#login-title {
-    display: block;
-}
-
 .login-box {
     display: flex;
     justify-content: center;
@@ -87,9 +83,24 @@ nav {
     margin: 0;
 }
 
+.form-container {
+    background-color: rgb(180, 209, 155);
+    border-radius: 20px;
+    padding: 40px 60px;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-h2 {
+    font-size: 15px;
+    text-align: center;
+}
+
+
 #username-field,
 #password-field {
     display: block;
+    width: 250px;
     margin-top: 10px;
     margin-bottom: 10px;
     border: solid 2px rgb(171, 175, 179);
