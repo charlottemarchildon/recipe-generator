@@ -2,6 +2,10 @@
     --nav-background-green: rgb(150, 188, 117);
 }
 
+body {
+    background-color: rgb(245,245,220);
+}
+
 #nav-bar {
     display: flex;
     text-decoration: none;
