@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Log in</title>
 </head>
-    <body style="text-align: center">
+
+<body>
+    <header style="text-align: center">
         <div>
             <nav>
                 <a href="#"><img src="./assets/images/flavour-fusion-icon.png" id="icon"></a>
@@ -22,5 +24,15 @@
                 </ul>
             </nav>
         <div>
-    </body>
+    </header>
+    <section class="login-box">
+        <h1>Log in</h1>
+        <form action="/login" method="post">
+            <input type="text" name="username" id="username-field" placeholder="Username">
+            <input type="password" name="password" id= "password-field" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+    </section>
+    <script src="./assets/js/script.js"></script>
+</body>
 </html>
