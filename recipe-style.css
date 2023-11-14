@@ -40,11 +40,6 @@ img {
     width: 100%;
 }
 
-.top {
-    display: inline;
-    margin-bottom: 20px;
-}
-
 main {
     margin-left: 5px;
     display: block;
@@ -156,4 +151,20 @@ iframe {
 #steps li {
     font-size: 20px;
     padding: 20px 15px 15px 15px;
+}
+
+.search {
+    color: grey;
+    font-style: italic;
+    padding: 10px 15px;
+}
+
+.history-card {
+    padding: 15px;
+    margin: 10px 0px;
+    background-color: white;
+    width: 75%;
+    margin-left: 15px;
+    border-radius: 6px;
+    font-weight: lighter;
 }
