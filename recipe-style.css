@@ -159,12 +159,19 @@ iframe {
     padding: 10px 15px;
 }
 
-.history-card {
-    padding: 15px;
-    margin: 10px 0px;
-    background-color: white;
-    width: 75%;
-    margin-left: 15px;
+.history {
+    width: 80%;
     border-radius: 6px;
-    font-weight: lighter;
+    padding-left: 5%;
+    list-style-type: none;
 }
+
+.history-card {
+    margin: 10px 0px;
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    background-color: white;
+    font-weight: bold;
+}
+
