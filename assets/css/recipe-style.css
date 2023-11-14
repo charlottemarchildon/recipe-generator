@@ -13,9 +13,12 @@ header {
     background-color: var(--main-color);
     width: 100%;
     height: 100px;
+    position: fixed;
+    top: 0px;
 }
 
 body {
+    margin-top: 100px;
     background-color: beige;
 }
 
