@@ -46,7 +46,6 @@ main {
 }
 
 .introduction {
-    margin: 0px 20px 20px 20px;
     width: 66%;
     float: right;
 }
@@ -129,7 +128,7 @@ iframe {
 }
 
 #steps {
-    width: 100%;
+    width: 90%;
     border-radius: 6px;
     margin-left: 37px;
 }
