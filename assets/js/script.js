@@ -26,9 +26,8 @@ function login() {
         if (rememberUser) {
             localStorage.setItem('username', username);
         }
-    }
 
-    else {
+    } else {
         alert ('Login failed!');
     }
 }
@@ -37,8 +36,7 @@ function signup() {
     var newUsername = document.getElementById('newUsername').value;
     var newPassword = document.getElementById('newPassword').value;
 
-    localStorage.setItem(newUsername);
-    localStorage.setItem(newPassword);
+    localStorage.setItem(newUsername, newPassword);
 
-    alert(`Sign up successful! Welcome, ${newUsername}!`);
+    alert(`Welcome, ${newUsername}!`);
 }
