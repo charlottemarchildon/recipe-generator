@@ -12,8 +12,24 @@ form.addEventListener("submit", (e) => {
   console.log(recipeIngredients);
   var recipeInstructions = document.getElementById("recipe-instructions").value;
   console.log(recipeInstructions);
+
+  // Show success message
+  showSuccessMessage();
+
+  function showSuccessMessage() {
+    var successMsg = document.createElement("div");
+    successMsg.textContent = "Recipe submitted successfully!";
+    successMsg.classList.add("success");
+
+    form.appendChild(successMsg);
+  }
+
+  // Clear form after submission
+  clearForm();
 });
 
-//Get form data
-//Send form data to server
-//Show sucess message
+function clearForm() {
+  document.getElementById("recipe-name").value = "";
+  document.getElementById("recipe-ingredients").value = "";
+  document.getElementById("recipe-instructions").value = "";
+}
