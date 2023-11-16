@@ -83,6 +83,10 @@ Buttons styled with Bootstrap and given functionality to trigger their respectiv
             </div>
         </div>
 
+        <!--
+            Div created to store signup button and form.
+            Class naming conventions follow Bootstrap modal.
+        -->        
         <div id="signup" class="modal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -93,13 +97,22 @@ Buttons styled with Bootstrap and given functionality to trigger their respectiv
                     </div>
                     <div class="modal-body">
                         <form class="signup-form">
+                            <!--
+                                Labels added for newUsername and newPassword fields; input styling is given by Bootstrap's form-control. Fields made required.
+                            -->                      
                             <label for="newUsername">Username:</label>
                             <input type="text" id="newUsername" class="form-control">
                             <label for="newPassword">Password:</label>
                             <input type="text" id="newPassword" class="form-control" required>
+                            <!--
+                                Button triggers the signup() function when clicked.
+                            -->                    
                             <button type="button" class="btn btn-success" onclick="signup()">Sign Up</button>
                         </form>
                     </div>
+                    <!--
+                        "Exit" button added to footer to exit the modal window.
+                    -->                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
                             Exit
