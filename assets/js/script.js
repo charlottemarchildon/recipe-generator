@@ -1,4 +1,5 @@
 let loginWindow = new bootstrap.Modal(document.getElementById('login'));
+let signupWindow = new bootstrap.Modal(document.getElementById('signup'));
 
 function loginBox() {
     const savedUser = localStorage.getItem('username');
@@ -7,6 +8,10 @@ function loginBox() {
     }
 
     loginWindow.show();
+}
+
+function signupBox() {
+    signupWindow.show();
 }
 
 function login() {
@@ -22,7 +27,7 @@ function login() {
             localStorage.setItem('username', username);
         }
     }
-    
+
     else {
         alert ('Login failed!');
     }
