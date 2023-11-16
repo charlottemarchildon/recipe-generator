@@ -79,51 +79,11 @@ nav {
     align-items: center;
 }
 
-.login-box {
+.container {
     display: flex;
-    justify-content: center;
     align-items: center;
+    text-align: center;
     height: 75vh;
     margin: 0;
-}
-
-.form-container {
-    background-color: rgb(180, 209, 155);
-    border-radius: 20px;
-    padding: 40px 60px;
-    align-items: center;
-    justify-content: center;
-}
-
-#login-h2 {
-    font-size: 15px;
-    text-align: center;
-}
-
-
-#username-field,
-#password-field {
-    display: block;
-    width: 250px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: solid 2px rgb(171, 175, 179);
-    border-radius: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-#submit-button {
-    color: rgb(33,37,41);
-    border: solid 2px var(--nav-background-green);
-    border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-#submit-button:hover {
-    color: rgb(78, 85, 92);
-    cursor: pointer;
+    margin-left: 40%;
 }
