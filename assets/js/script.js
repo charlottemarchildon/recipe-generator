@@ -32,3 +32,8 @@ function login() {
         alert ('Login failed!');
     }
 }
+
+function signup() {
+    var newUsername = document.getElementById('newUsername').value;
+    var newPassword = document.getElementById('newPassword').value;
+}
