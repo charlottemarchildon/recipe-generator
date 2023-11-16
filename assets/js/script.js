@@ -36,4 +36,9 @@ function login() {
 function signup() {
     var newUsername = document.getElementById('newUsername').value;
     var newPassword = document.getElementById('newPassword').value;
+
+    localStorage.setItem(newUsername);
+    localStorage.setItem(newPassword);
+
+    alert(`Sign up successful! Welcome, ${newUsername}!`);
 }
