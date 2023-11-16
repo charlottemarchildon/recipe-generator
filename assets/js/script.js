@@ -1,13 +1,29 @@
 let loginWindow = new bootstrap.Modal(document.getElementById('login'));
 
+function loginBox() {
+    const savedUser = localStorage.getItem('username');
+    if (savedUser) {
+        document.getElementById('username').value = savedUser;
+    }
+
+    loginWindow.show();
+}
+
 function login() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     const rememberUser = document.getElementById('rememberUser');
+    const existingUser = localStorage.getItem(username);
 
-    loginWindow.show();
+    if (existingUser && password === existingUser) {
+        alert('Login successful!');
 
-    if (rememberUser) {
-        localStorage.setItem('username', username);
+        if (rememberUser) {
+            localStorage.setItem('username', username);
+        }
+    }
+    
+    else {
+        alert ('Login failed!');
     }
 }
