@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js">
+    </script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Submit Your Recipe!</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body style="text-align: center">
+    <div id="main-display">
+        <div>
+            <nav>
+                <a href="#"><img src="flavour-fusion-icon.png" id="icon"></a>
+                <ul id="nav-bar">
+                        <li class="nav-list"><a href="/">Login</a></li>
+                        <li class="nav-list"><a href="/">Submit</a></li>
+                        <li class="nav-list"><a href="/">Contact</a></li>
+                </ul>
+            </nav>
+            <div>
+<h1 class="web-title">SUBMIT YOUR RECIPE</h1>
+<p class="web-subtitle">Share your own recipe with us!</p>
+<form id="recipe-form">
+
+    <label for="recipe-name">Recipe Name:</label>
+    <input type="text" id="recipe-name" name="recipe-name" placeholder="Name of the recipe" required>
+  
+    <label for="recipe-ingredients">Ingredients:</label>
+    <textarea id="recipe-ingredients" name="recipe-ingredients" placeholder="Ingredients" required></textarea>
+  
+    <label for="recipe-instructions">Instructions:</label>
+    <textarea id="recipe-instructions" name="recipe-instructions" placeholder="Steps of how to prepare"></textarea>
+  
+    <label for="recipe-image">Recipe Image:</label>
+    <input type="file" id="recipe-image" name="recipe-image">
+
+    <button type="submit">Submit Recipe</button>
+    <div></div>
+  
+  </form>
+  
+ <script src="./assets/js/script.js"></script>   
+</body>
+</html>
