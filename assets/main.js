@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Variable to hold search results
 
-var searchResults = []
+var searchResults = {};
 
 function displayData(data) {
     let results = document.querySelector("#search-results");
@@ -58,7 +58,9 @@ function displayData(data) {
         let imageEl = document.createElement("div");
         imageEl.className = "recipeImage";
         let recipeLink = document.createElement("a");
+        // Adding id to recipeLink which corresponds to it's index number
         recipeLink.className = "recipeLink";
+        recipeLink.id = `${i}`;
 
         resultEl.appendChild(titleEl);
         resultEl.appendChild(recipeLink)
@@ -71,7 +73,7 @@ function displayData(data) {
         idEl.textContent = recipeId;
         titleEl.textContent = `${data.d[i].Title}`;
         // Connect to recipe page
-        recipeLink.href = `#recipe.html`;
+        recipeLink.href = `recipe.html`;
         console.log(titleEl)
         let imageLink = `url(${data.d[i].Image})`
         console.log(imageLink);
@@ -81,21 +83,26 @@ function displayData(data) {
         console.log(data.d[i].Image);
 
         // Storing information of recipe
+        // index 0 ID
+        // index 1 Recipe Name
+        // index 2 Image URL
+        // index 3 Ingredients
+        // index 4 Instructions
 
-        var recipeInfo  = {
-            ID: "",
-            recipeName: "",
-            imageUrl: "",
-            recipeIngredients: "",
-            recipeInstructions:"",
-            addRecipe: function () {
-                searchResults.append(recipeInfo);
-            },
-        };
+        searchResults[`${i}`] = [];
 
-        // var ${recipeId} = Object.create(recipeInfo);
+        var ingredientList = JSON.stringify(data.d[i].Ingredients);
+        var parsedList = ingredientList.split(`,"`);
 
+        var instructionList = data.d[i].Instructions;
+        instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
 
+        searchResults[`${i}`].push(recipeId);
+        searchResults[`${i}`].push(`${data.d[i].Title}`);
+        searchResults[`${i}`].push(imageLink);
+        searchResults[`${i}`].push(parsedList);
+        searchResults[`${i}`].push(instructionList);
+        console.log(searchResults);
 
         recipeLink.addEventListener("click", function () {
             console.log(recipeLink)
@@ -131,8 +138,6 @@ function displayData(data) {
                 console.log('Recipe title is already in local storage:', clickedRecipeTitle);
             }
         });
-        
-
     }
 }
 
@@ -140,28 +145,28 @@ function displayData(data) {
 
         // Adding recipe information to recipe page
 
-        $(`#food-picture`).attr("src", imageLink);
-        $(`#food-name`).text(`${data.d[i].Title}`);
+        // $(`#food-picture`).attr("src", imageLink);
+        // $(`#food-name`).text(`${data.d[i].Title}`);
 
-        var ingredientList = JSON.stringify(data.d[i].Ingredients);
-        var parsedList = ingredientList.split(`,"`);
-        console.log(parsedList);
-        for (var c = 0; i < parsedList.length; c++) {
-            var ingEl = $("<li></li>");
-            var ing = parsedList[c].substring(parsedList[c].indexOf(':"') + 2, parsedList[c].lastIndexOf('"'));
-            ingEl.text(ing);
-            $(`#ing-list`).append(ingEl);
-        }
+        // var ingredientList = JSON.stringify(data.d[i].Ingredients);
+        // var parsedList = ingredientList.split(`,"`);
+        // console.log(parsedList);
+        // for (var c = 0; i < parsedList.length; c++) {
+        //     var ingEl = $("<li></li>");
+        //     var ing = parsedList[c].substring(parsedList[c].indexOf(':"') + 2, parsedList[c].lastIndexOf('"'));
+        //     ingEl.text(ing);
+        //     $(`#ing-list`).append(ingEl);
+        // }
 
-        var instructionList = data.d[i].Instructions;
-        instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
-        console.log(instructionList);
-        for (var n=0; i < instructionList.length; n++) {
-            var insEl = $("<li></li>");
-            var ins = instructionList[n];
-            insEl.text(ins);
-            $(`#steps`).append(insEl);
-        }
+        // var instructionList = data.d[i].Instructions;
+        // instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
+        // console.log(instructionList);
+        // for (var n=0; i < instructionList.length; n++) {
+        //     var insEl = $("<li></li>");
+        //     var ins = instructionList[n];
+        //     insEl.text(ins);
+        //     $(`#steps`).append(insEl);
+        // }
 
 
 instructionButton.addEventListener('click', async function () {
