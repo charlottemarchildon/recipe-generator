@@ -1,32 +1,21 @@
-// document.getElementsByClassName('recipe').click(function(event){
-    // Getting the id of the element that has been clicked on 
-    // var recipeIndex = event.target.id;
+var recipeInfo = localStorage.getItem("selected");
 
-    // Adding recipe information to recipe page
-    // Extracting information of recipe
-    // index 0 ID
-    // index 1 Recipe Name
-    // index 2 Image URL
-    // index 3 Ingredients
-    // index 4 Instructions
+recipeInfo = JSON.parse(recipeInfo);
+console.log(recipeInfo);
 
-//     var recipeInfo = main.$(`#${recipeIndex}`);
+$(`#food-name`).text(recipeInfo[1]);
+$(`#food-picture`).attr("src", recipeInfo[2]);
 
-//     $(`#food-name`).text(recipeInfo[1]);
-//     $(`#food-picture`).attr("src", recipeInfo[2]);
+for (var i = 0; i < recipeInfo.length; i++) {
+    var ingEl = $("<li></li>");
+    var ing = recipeInfo[3][i].substring(recipeInfo[3][i].indexOf(':"') + 2, recipeInfo[3][i].lastIndexOf('"'));
+    ingEl.text(ing);
+    $(`#ing-list`).append(ingEl);
+};
 
-//     for (var c = 0; i < parsedList.length; c++) {
-//         var ingEl = $("<li></li>");
-//         var ing = parsedList[c].substring(parsedList[c].indexOf(':"') + 2, parsedList[c].lastIndexOf('"'));
-//         ingEl.text(ing);
-//         $(`#ing-list`).append(ingEl);
-//     };
-
-//     for (var n=0; i < instructionList.length; n++) {
-//         var insEl = $("<li></li>");
-//         var ins = instructionList[n];
-//         insEl.text(ins);
-//         $(`#steps`).append(insEl);
-//     };
-
-// });
+for (var n=0; n < recipeInfo[4].length; n++) {
+    var insEl = $("<li></li>");
+    var ins = recipeInfo[4][n];
+    insEl.text(ins);
+    $(`#steps`).append(insEl);
+};

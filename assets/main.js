@@ -2,6 +2,8 @@ let searchInput = document.querySelector("#search")
 let recipeForm = document.getElementById("recipe-form")
 let instructionButton = document.getElementById("instructionButton")
 let recipeCard = document.querySelector(".recipe");
+let userInput = document.querySelector(".typeahead");
+let recipePage = document.querySelector(".instruction");
 
 var searchResults = {};
 
@@ -39,11 +41,13 @@ if (recipeForm) {
     });
 };
 
-document.addEventListener('DOMContentLoaded', function () {
-    var instructionButton = document.getElementById('instructionButton');
-    var collapseExample = new bootstrap.Collapse(document.getElementById('collapseExample'));
-    collapseExample.show();
-});
+if (instructionButton) {
+    document.addEventListener('DOMContentLoaded', function () {
+        var instructionButton = document.getElementById('instructionButton');
+        var collapseExample = new bootstrap.Collapse(document.getElementById('collapseExample'));
+        collapseExample.show();
+    });
+};
 
 // Variable to hold search results
 
@@ -61,9 +65,9 @@ function displayData(data) {
         let imageEl = document.createElement("div");
         imageEl.className = "recipeImage";
         let recipeLink = document.createElement("a");
-        // Adding id to recipeLink which corresponds to it's index number
         recipeLink.className = "recipeLink";
-        recipeLink.id = `${i}`;
+        // Adding id to recipeLink which corresponds to it's index number
+        resultEl.id = `${i}`;
 
         resultEl.appendChild(titleEl);
         resultEl.appendChild(recipeLink)
@@ -76,7 +80,7 @@ function displayData(data) {
         idEl.textContent = recipeId;
         titleEl.textContent = `${data.d[i].Title}`;
         // Connect to recipe page
-        recipeLink.href = `recipe.html`;
+        // recipeLink.href = `recipe.html`;
         console.log(titleEl)
         let imageLink = `url(${data.d[i].Image})`
         console.log(imageLink);
@@ -146,38 +150,40 @@ function displayData(data) {
 
 // Event Listener for which recipe is pressed on
 
-if (recipeCard) {
-    $('.recipe').click(function(event){
-        // Getting the id of the element that has been clicked on 
-        var recipeIndex = event.target.id;
+$('#search-results').click(function(event){
+    // Getting the id of the element that has been clicked on 
+    var recipeIndex = event.target.id;
+    console.log(recipeIndex);
+    var recipeInfo = searchResults[recipeIndex];
 
-        // Adding recipe information to recipe page
-        // Extracting information of recipe
-        // index 0 ID
-        // index 1 Recipe Name
-        // index 2 Image URL
-        // index 3 Ingredients
-        // index 4 Instructions
+    // Adding recipe information to recipe page
+    // Extracting information of recipe
+    // index 0 ID
+    // index 1 Recipe Name
+    // index 2 Image URL
+    // index 3 Ingredients
+    // index 4 Instructions
 
-        $(`#food-name`).text(searchResults[recipeIndex][1]);
-        $(`#food-picture`).attr("src", searchResults[recipeIndex][2]);
+    // $(`#food-name`).text(searchResults[recipeIndex][1]);
+    // $(`#food-picture`).attr("src", searchResults[recipeIndex][2]);
 
-        for (var c = 0; i < parsedList.length; c++) {
-            var ingEl = $("<li></li>");
-            var ing = parsedList[c].substring(parsedList[c].indexOf(':"') + 2, parsedList[c].lastIndexOf('"'));
-            ingEl.text(ing);
-            $(`#ing-list`).append(ingEl);
-        };
+    // for (var c = 0; i < parsedList.length; c++) {
+    //     var ingEl = $("<li></li>");
+    //     var ing = parsedList[c].substring(parsedList[c].indexOf(':"') + 2, parsedList[c].lastIndexOf('"'));
+    //     ingEl.text(ing);
+    //     $(`#ing-list`).append(ingEl);
+    // };
 
-        for (var n=0; i < instructionList.length; n++) {
-            var insEl = $("<li></li>");
-            var ins = instructionList[n];
-            insEl.text(ins);
-            $(`#steps`).append(insEl);
-        };
+    // for (var n=0; i < instructionList.length; n++) {
+    //     var insEl = $("<li></li>");
+    //     var ins = instructionList[n];
+    //     insEl.text(ins);
+    //     $(`#steps`).append(insEl);
+    // };
 
-    });
-};
+    localStorage.setItem("selected", JSON.stringify(recipeInfo));
+
+});
 
 
 if (instructionButton) {
@@ -226,210 +232,211 @@ function getLocalStorage(key) {
     return storedData ? JSON.parse(storedData) : null;
 }
 
+if (userInput){;
+    var $input = $(".typeahead");
+    $input.typeahead({
+        source: [
+            "Beef",
+            "Veggie Sushi",
+            "Avocado Carbonara",
+            "Spaghetti Carbonara",
+            "Chicken Alfredo",
+            "Grilled Cheese Sandwich",
+            "Chicken Noodle Soup",
+            "Caesar Salad",
+            "Fried Rice",
+            "Mashed Potatoes",
+            "Chocolate Chip Cookies",
+            "Taco Salad",
+            "Chicken Parmesan",
+            "Beef Stir-Fry",
+            "Baked Salmon",
+            "French Toast",
+            "BBQ Ribs",
+            "Cesar Salad",
+            "Chicken Tenders",
+            "Tuna Salad",
+            "Baked Ziti",
+            "Chicken Fried Rice",
+            "Chocolate Cake",
+            "Cheeseburger",
+            "Garden Salad",
+            "Spinach Salad",
+            "Greek Salad",
+            "Club Sandwich",
+            "Veggie Pizza",
+            "Chicken Curry",
+            "Egg Salad",
+            "Chicken Tacos",
+            "Beef Tacos",
+            "Fish Tacos",
+            "Veggie Stir-Fry",
+            "Beef and Broccoli",
+            "Chicken and Rice",
+            "Chicken Pot Pie",
+            "Tomato Soup",
+            "Ham and Cheese Sandwich",
+            "Shrimp Scampi",
+            "Pulled Pork Sandwich",
+            "Beef Stroganoff",
+            "Eggplant Parmesan",
+            "Beef and Rice",
+            "Chicken Fajitas",
+            "Chicken Quesadilla",
+            "Mushroom Risotto",
+            "Chicken and Broccoli",
+            "Shrimp Alfredo",
+            "Turkey Sandwich",
+            "Veggie Burger",
+            "Tofu Stir-Fry",
+            "Egg Drop Soup",
+            "Chicken Marsala",
+            "Veggie Wrap",
+            "Fish and Chips",
+            "Tofu Scramble",
+            "Chicken Kebabs",
+            "Beef and Noodles",
+            "Shrimp Stir-Fry",
+            "Baked Chicken",
+            "Tofu Tacos",
+            "Ham and Cheese Omelette",
+            "Veggie Omelette",
+            "Beef and Peppers",
+            "Chicken Enchiladas",
+            "Turkey Burger",
+            "Chicken Tenders",
+            "Shrimp Scampi",
+            "Beef and Rice",
+            "Veggie Stir-Fry",
+            "Chicken and Rice",
+            "Shrimp Alfredo",
+            "Mushroom Risotto",
+            "Beef and Broccoli",
+            "Chicken Fajitas",
+            "Chicken Quesadilla",
+            "Pulled Pork Sandwich",
+            "Fish Tacos",
+            "Turkey Sandwich",
+            "Veggie Pizza",
+            "Beef Tacos",
+            "Veggie Wrap",
+            "Chicken Curry",
+            "Fish and Chips",
+            "Tofu Stir-Fry",
+            "Chicken and Broccoli",
+            "Tofu Scramble",
+            "Chicken Marsala",
+            "Turkey Burger",
+            "Beef Stroganoff",
+            "Veggie Burger",
+            "Veggie Omelette",
+            "Chicken Kebabs",
+            "Egg Drop Soup",
+            "Egg Salad",
+            "Chicken and Noodles",
+            "Chicken Pot Pie",
+            "Taco Salad",
+            "Mashed Potatoes",
+            "French Toast",
+            "Greek Salad",
+            "Chicken Tacos",
+            "Ham and Cheese Omelette",
+            "Beef and Peppers",
+            "Veggie Burrito",
+            "Mushroom Soup",
+            "Shrimp and Rice",
+            "Beef and Broccoli Stir-Fry",
+            "Shrimp Scampi Pasta",
+            "Chicken and Rice Casserole",
+            "Veggie Stir-Fry",
+            "Lemon Garlic Shrimp",
+            "Chicken and Vegetable Stir-Fry",
+            "Beef and Noodle Stir-Fry",
+            "Garlic Butter Shrimp",
+            "Chicken Fajita Bowl",
+            "Beef and Mushroom Stir-Fry",
+            "Spaghetti Bolognese",
+            "Chicken and Broccoli Alfredo",
+            "Shrimp and Asparagus Risotto",
+            "Beef and Green Bean Stir-Fry",
+            "Honey Garlic Shrimp",
+            "Chicken and Mushroom Stir-Fry",
+            "Teriyaki Beef and Broccoli",
+            "Lemon Pepper Shrimp",
+            "Chicken and Spinach Alfredo",
+            "Shrimp and Snow Pea Stir-Fry",
+            "Beef and Snow Pea Stir-Fry",
+            "Creamy Mushroom Chicken",
+            "Shrimp and Bell Pepper Stir-Fry",
+            "Beef and Spinach Stir-Fry",
+            "Baked Ziti",
+            "Chicken Alfredo",
+            "Beef and Rice",
+            "Beef Tacos",
+            "Veggie Wrap",
+            "Chicken Curry",
+            "Fish and Chips",
+            "Tofu Stir-Fry",
+            "Chicken and Broccoli",
+            "Tofu Scramble",
+            "Chicken Marsala",
+            "Turkey Burger",
+            "Beef Stroganoff",
+            "Veggie Burger",
+            "Veggie Omelette",
+            "Chicken Kebabs",
+            "Egg Drop Soup",
+            "Egg Salad",
+            "Chicken and Noodles",
+            "Chicken Pot Pie",
+            "Taco Salad",
+            "Mashed Potatoes",
+            "French Toast",
+            "Greek Salad",
+            "Chicken Tacos",
+            "Ham and Cheese Omelette",
+            "Beef and Peppers",
+            "Veggie Burrito",
+            "Mushroom Soup",
+            "Shrimp and Rice",
+            "Beef and Broccoli Stir-Fry",
+            "Shrimp Scampi Pasta",
+            "Chicken and Rice Casserole",
+            "Lemon Garlic Shrimp",
+            "Chicken and Vegetable Stir-Fry",
+            "Beef and Noodle Stir-Fry",
+            "Garlic Butter Shrimp",
+            "Chicken Fajita Bowl",
+            "Beef and Mushroom Stir-Fry",
+            "Spaghetti Bolognese",
+            "Chicken and Broccoli Alfredo",
+            "Shrimp and Asparagus Risotto",
+            "Beef and Green Bean Stir-Fry",
+            "Honey Garlic Shrimp",
+            "Chicken and Mushroom Stir-Fry",
+            "Teriyaki Beef and Broccoli",
+            "Lemon Pepper Shrimp",
+            "Chicken and Spinach Alfredo",
+            "Shrimp and Snow Pea Stir-Fry",
+            "Beef and Snow Pea Stir-Fry",
+            "Creamy Mushroom Chicken",
+            "Shrimp and Bell Pepper Stir-Fry",
+            "Beef and Spinach Stir-Fry",
+        ],
+        autoSelect: true,
+    });
+};
 
-var $input = $(".typeahead");
-$input.typeahead({
-    source: [
-        "Beef",
-        "Veggie Sushi",
-        "Avocado Carbonara",
-        "Spaghetti Carbonara",
-        "Chicken Alfredo",
-        "Grilled Cheese Sandwich",
-        "Chicken Noodle Soup",
-        "Caesar Salad",
-        "Fried Rice",
-        "Mashed Potatoes",
-        "Chocolate Chip Cookies",
-        "Taco Salad",
-        "Chicken Parmesan",
-        "Beef Stir-Fry",
-        "Baked Salmon",
-        "French Toast",
-        "BBQ Ribs",
-        "Cesar Salad",
-        "Chicken Tenders",
-        "Tuna Salad",
-        "Baked Ziti",
-        "Chicken Fried Rice",
-        "Chocolate Cake",
-        "Cheeseburger",
-        "Garden Salad",
-        "Spinach Salad",
-        "Greek Salad",
-        "Club Sandwich",
-        "Veggie Pizza",
-        "Chicken Curry",
-        "Egg Salad",
-        "Chicken Tacos",
-        "Beef Tacos",
-        "Fish Tacos",
-        "Veggie Stir-Fry",
-        "Beef and Broccoli",
-        "Chicken and Rice",
-        "Chicken Pot Pie",
-        "Tomato Soup",
-        "Ham and Cheese Sandwich",
-        "Shrimp Scampi",
-        "Pulled Pork Sandwich",
-        "Beef Stroganoff",
-        "Eggplant Parmesan",
-        "Beef and Rice",
-        "Chicken Fajitas",
-        "Chicken Quesadilla",
-        "Mushroom Risotto",
-        "Chicken and Broccoli",
-        "Shrimp Alfredo",
-        "Turkey Sandwich",
-        "Veggie Burger",
-        "Tofu Stir-Fry",
-        "Egg Drop Soup",
-        "Chicken Marsala",
-        "Veggie Wrap",
-        "Fish and Chips",
-        "Tofu Scramble",
-        "Chicken Kebabs",
-        "Beef and Noodles",
-        "Shrimp Stir-Fry",
-        "Baked Chicken",
-        "Tofu Tacos",
-        "Ham and Cheese Omelette",
-        "Veggie Omelette",
-        "Beef and Peppers",
-        "Chicken Enchiladas",
-        "Turkey Burger",
-        "Chicken Tenders",
-        "Shrimp Scampi",
-        "Beef and Rice",
-        "Veggie Stir-Fry",
-        "Chicken and Rice",
-        "Shrimp Alfredo",
-        "Mushroom Risotto",
-        "Beef and Broccoli",
-        "Chicken Fajitas",
-        "Chicken Quesadilla",
-        "Pulled Pork Sandwich",
-        "Fish Tacos",
-        "Turkey Sandwich",
-        "Veggie Pizza",
-        "Beef Tacos",
-        "Veggie Wrap",
-        "Chicken Curry",
-        "Fish and Chips",
-        "Tofu Stir-Fry",
-        "Chicken and Broccoli",
-        "Tofu Scramble",
-        "Chicken Marsala",
-        "Turkey Burger",
-        "Beef Stroganoff",
-        "Veggie Burger",
-        "Veggie Omelette",
-        "Chicken Kebabs",
-        "Egg Drop Soup",
-        "Egg Salad",
-        "Chicken and Noodles",
-        "Chicken Pot Pie",
-        "Taco Salad",
-        "Mashed Potatoes",
-        "French Toast",
-        "Greek Salad",
-        "Chicken Tacos",
-        "Ham and Cheese Omelette",
-        "Beef and Peppers",
-        "Veggie Burrito",
-        "Mushroom Soup",
-        "Shrimp and Rice",
-        "Beef and Broccoli Stir-Fry",
-        "Shrimp Scampi Pasta",
-        "Chicken and Rice Casserole",
-        "Veggie Stir-Fry",
-        "Lemon Garlic Shrimp",
-        "Chicken and Vegetable Stir-Fry",
-        "Beef and Noodle Stir-Fry",
-        "Garlic Butter Shrimp",
-        "Chicken Fajita Bowl",
-        "Beef and Mushroom Stir-Fry",
-        "Spaghetti Bolognese",
-        "Chicken and Broccoli Alfredo",
-        "Shrimp and Asparagus Risotto",
-        "Beef and Green Bean Stir-Fry",
-        "Honey Garlic Shrimp",
-        "Chicken and Mushroom Stir-Fry",
-        "Teriyaki Beef and Broccoli",
-        "Lemon Pepper Shrimp",
-        "Chicken and Spinach Alfredo",
-        "Shrimp and Snow Pea Stir-Fry",
-        "Beef and Snow Pea Stir-Fry",
-        "Creamy Mushroom Chicken",
-        "Shrimp and Bell Pepper Stir-Fry",
-        "Beef and Spinach Stir-Fry",
-        "Baked Ziti",
-        "Chicken Alfredo",
-        "Beef and Rice",
-        "Beef Tacos",
-        "Veggie Wrap",
-        "Chicken Curry",
-        "Fish and Chips",
-        "Tofu Stir-Fry",
-        "Chicken and Broccoli",
-        "Tofu Scramble",
-        "Chicken Marsala",
-        "Turkey Burger",
-        "Beef Stroganoff",
-        "Veggie Burger",
-        "Veggie Omelette",
-        "Chicken Kebabs",
-        "Egg Drop Soup",
-        "Egg Salad",
-        "Chicken and Noodles",
-        "Chicken Pot Pie",
-        "Taco Salad",
-        "Mashed Potatoes",
-        "French Toast",
-        "Greek Salad",
-        "Chicken Tacos",
-        "Ham and Cheese Omelette",
-        "Beef and Peppers",
-        "Veggie Burrito",
-        "Mushroom Soup",
-        "Shrimp and Rice",
-        "Beef and Broccoli Stir-Fry",
-        "Shrimp Scampi Pasta",
-        "Chicken and Rice Casserole",
-        "Lemon Garlic Shrimp",
-        "Chicken and Vegetable Stir-Fry",
-        "Beef and Noodle Stir-Fry",
-        "Garlic Butter Shrimp",
-        "Chicken Fajita Bowl",
-        "Beef and Mushroom Stir-Fry",
-        "Spaghetti Bolognese",
-        "Chicken and Broccoli Alfredo",
-        "Shrimp and Asparagus Risotto",
-        "Beef and Green Bean Stir-Fry",
-        "Honey Garlic Shrimp",
-        "Chicken and Mushroom Stir-Fry",
-        "Teriyaki Beef and Broccoli",
-        "Lemon Pepper Shrimp",
-        "Chicken and Spinach Alfredo",
-        "Shrimp and Snow Pea Stir-Fry",
-        "Beef and Snow Pea Stir-Fry",
-        "Creamy Mushroom Chicken",
-        "Shrimp and Bell Pepper Stir-Fry",
-        "Beef and Spinach Stir-Fry",
-    ],
-    autoSelect: true,
-});
+if (userInput) {
+    $input.change(function () {
+        var current = $input.typeahead("getActive");
+        matches = [];
 
-$input.change(function () {
-    var current = $input.typeahead("getActive");
-    matches = [];
+        if (current) {
 
-    if (current) {
-
-        if (current.name == $input.val()) {
-            matches.push(current.name);
+            if (current.name == $input.val()) {
+                matches.push(current.name);
+            }
         }
-    }
-});
-
-
+    });
+};
