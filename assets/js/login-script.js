@@ -83,5 +83,4 @@ function signup() {
         signupFailure.textContent = 'Sign up failed!';
         signupFooter.appendChild(signupFailure);
     }
-
 }
