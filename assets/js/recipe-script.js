@@ -24,3 +24,5 @@ for (var n=0; n < recipeInfo[4].length; n++) {
     insEl.text(ins);
     $(`#steps`).append(insEl);
 };
+
+$(`.logo`).click()
