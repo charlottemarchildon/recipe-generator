@@ -37,6 +37,10 @@ function login() {
     const rememberUser = document.getElementById('rememberUser').checked;
     const existingUser = localStorage.getItem(username);
 
+    /*
+    Log in will be successful if user has used the sign up function to create an account and the password matches. Else, login will fail.
+    If "Remember Me" is checked, the username will be saved in local storage.
+    */
     if (existingUser && password === existingUser) {
         alert('Login successful!');
 
@@ -49,11 +53,16 @@ function login() {
     }
 }
 
+/*
+Assign variables to the newUsername and newPassword fields.
+Input for both fields is saved to local storage.
+*/
 function signup() {
     var newUsername = document.getElementById('newUsername').value;
     var newPassword = document.getElementById('newPassword').value;
 
-    localStorage.setItem(newUsername, newPassword);
+    localStorage.setItem(newUsername);
+    localStorage.setItem(newPassword);
 
     alert(`Welcome, ${newUsername}!`);
 }
