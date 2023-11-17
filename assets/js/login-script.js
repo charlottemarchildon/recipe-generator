@@ -1,13 +1,22 @@
+/*
+Variables assigned to each modal's id.
+*/
 let loginWindow = new bootstrap.Modal(document.getElementById('login'));
 let signupWindow = new bootstrap.Modal(document.getElementById('signup'));
 
+/*
+Login window will open.
+Username field will check for a saved username from local storage. 
+Username field will autofill with username if found.
+*/
 function loginBox() {
+    loginWindow.show();
+
     const savedUser = localStorage.getItem('username');
+
     if (savedUser) {
         document.getElementById('username').value = savedUser;
     }
-
-    loginWindow.show();
 }
 
 function signupBox() {
