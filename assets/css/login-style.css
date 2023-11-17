@@ -1,0 +1,135 @@
+/*
+Assign background colour to a variable.
+*/
+:root {
+    --nav-background-green: rgb(150, 188, 117);
+}
+
+/*
+Assign background colour to the body.
+*/
+body {
+    background-color: rgb(245,245,220);
+}
+
+/*
+Remove text decoration and add space between buttons.
+Align items to the end of the cross axis.
+Nav bar width changed to fit the width of entire screen.
+*/
+#nav-bar {
+    display: flex;
+    text-decoration: none;
+    justify-content: space-around;
+    align-items: flex-end;
+    width: 1306px;
+    position: relative;
+}
+
+/*
+Text decoration removed from items and bullets removed.
+Font size and colour assigned.
+Added padding and width of each list item.
+*/
+#nav-bar li {
+    text-decoration: none;
+    list-style: none;
+    font-size: 18px;
+    padding: 3px;
+    width: 75px;
+    color: rgb(101, 89, 89);
+}
+
+/*
+Made each item have a bold font weight and no background colour.
+Items are floated to the left of the screen.
+Padding added to top and bottom.
+Overflow contents are automatically hidden.
+*/
+.nav-list {
+    font-weight: bold;
+    background-color: none;
+    float: left;
+    position: relative;
+    padding: 10px 20px;
+    overflow: hidden;
+}
+
+/*
+Text colour assigned and decoration removed.
+*/
+.nav-list a {
+    text-decoration: none;
+    color: black;
+}
+
+/*
+Add underline effect to the nav items.
+*/
+.nav-list::after {
+    background-color: rgb(0, 0, 0);
+    content: "";
+    width: 0;
+    height: 3px;
+    left: 0;
+    bottom: 0;
+    transition: width 0.35s ease 0s;
+    position: absolute;
+}
+
+/*
+Assign width to effect on hover.
+*/
+.nav-list:hover::after {
+    width: 100%;
+}
+
+/*
+Assign color and remove text decoration on hover.
+*/
+.nav-list a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/*
+Remove bullets from list items.
+Set margin and padding to 0.
+*/
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*
+Assign size of page icon.
+*/
+#icon {
+    max-width: 200px;
+    max-height: 60px;
+}
+
+/*
+Nav displayed as flex with space between nav and header, and a margin of 10px.
+Background colour assigned and items within nav are centered.
+*/
+nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    background-color: var(--nav-background-green);
+    padding: 5px;
+    align-items: center;
+}
+
+/*
+Login and sign up buttons are centered on the page.
+*/
+.container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 75vh;
+    margin-left: 40%;
+}
