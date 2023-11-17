@@ -35,34 +35,53 @@ function login() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     const rememberUser = document.getElementById('rememberUser').checked;
-    const existingUser = localStorage.getItem(username);
+    const existingUser = localStorage.getItem('username');
 
     /*
-    Log in will be successful if user has used the sign up function to create an account and the password matches. Else, login will fail.
+    Log in will be successful and display a Success message if user has used the sign up function to create an account and the password matches. Else, login will fail and display a Failure message.
     If "Remember Me" is checked, the username will be saved in local storage.
     */
-    if (existingUser && password === existingUser) {
-        alert('Login successful!');
+    if (existingUser && username === existingUser) {
+        const loginFooter = document.getElementById('login-footer');
+        const loginSuccess = document.createElement('p');
+        loginSuccess.textContent = 'Login successful!';
+        loginFooter.appendChild(loginSuccess);
 
         if (rememberUser) {
             localStorage.setItem('username', username);
         }
-
     } else {
-        alert ('Login failed!');
+        const loginFooter = document.getElementById('login-footer');
+        const loginFailure = document.createElement('p');
+        loginFailure.textContent = 'Login failed!';
+        loginFooter.appendChild(loginFailure);
     }
 }
 
 /*
 Assign variables to the newUsername and newPassword fields.
 Input for both fields is saved to local storage.
+System will check if there is an existing username, if it is null, a Success message will appear. Else, a failure message will appear.
 */
 function signup() {
     var newUsername = document.getElementById('newUsername').value;
     var newPassword = document.getElementById('newPassword').value;
 
-    localStorage.setItem(newUsername);
-    localStorage.setItem(newPassword);
+    localStorage.setItem('username', newUsername);
+    localStorage.setItem('password', newPassword);
 
-    alert(`Welcome, ${newUsername}!`);
+    var existingUsername = localStorage.getItem(username);
+    if (existingUsername === null) {
+        const signupFooter = document.getElementById('signup-footer');
+        const signupSuccess = document.createElement('p');
+        signupSuccess.textContent = 'Sign up successful!';
+        signupFooter.appendChild(signupSuccess);
+    }
+    else {
+        const signupFooter = document.getElementById('signup-footer');
+        const signupFailure = document.createElement('p');
+        signupFailure.textContent = 'Sign up failed!';
+        signupFooter.appendChild(signupFailure);
+    }
+
 }
