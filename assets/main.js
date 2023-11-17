@@ -56,8 +56,6 @@ function displayData(data) {
         let recipeLink = document.createElement("a");
         recipeLink.className = "recipeLink";
 
-
-        // resultEl.appendChild(imageEl);
         resultEl.appendChild(titleEl);
         resultEl.appendChild(recipeLink)
         recipeLink.appendChild(titleEl);
@@ -116,26 +114,14 @@ function displayData(data) {
     }
 }
 
-// window.addEventListener('beforeunload', function () {
-//         function getLocalStorage(key) {
-//         const storedData = localStorage.getItem(key);
-//         return storedData ? JSON.parse(storedData) : null;
-//     }
-//         let id = getLocalStorage("userRecipes");
-//         let testEl = document.createElement("h1");
-//         testEl.textContent = id
-//         recipeForm.appendChild(testEl);
-// });
 instructionButton.addEventListener('click', async function () {
-    // Get data from localStorage
+  
     const id = getLocalStorage("userRecipes");
     console.log(id[0], "hello");
 
-    // Loop through the ids
     for (let i = 0; i < id.length; i++) {
         console.log(id[i]);
         try {
-            // Call the fetchData function for each id
             const data = await fetchData(id[i]);
             console.log(data);
         } catch (error) {
