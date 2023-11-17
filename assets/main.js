@@ -80,7 +80,7 @@ function displayData(data) {
         idEl.textContent = recipeId;
         titleEl.textContent = `${data.d[i].Title}`;
         // Connect to recipe page
-        // recipeLink.href = `recipe.html`;
+        recipeLink.href = `recipe.html`;
         console.log(titleEl)
         let imageLink = `url(${data.d[i].Image})`
         console.log(imageLink);
@@ -96,7 +96,7 @@ function displayData(data) {
         // index 3 Ingredients
         // index 4 Instructions
 
-        searchResults[`${i}`] = [];
+        searchResults[`${recipeId}`] = [];
 
         var ingredientList = JSON.stringify(data.d[i].Ingredients);
         var parsedList = ingredientList.split(`,"`);
@@ -104,17 +104,19 @@ function displayData(data) {
         var instructionList = data.d[i].Instructions;
         instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
 
-        searchResults[`${i}`].push(recipeId);
-        searchResults[`${i}`].push(`${data.d[i].Title}`);
-        searchResults[`${i}`].push(imageLink);
-        searchResults[`${i}`].push(parsedList);
-        searchResults[`${i}`].push(instructionList);
+        searchResults[`${recipeId}`].push(recipeId);
+        searchResults[`${recipeId}`].push(`${data.d[i].Title}`);
+        searchResults[`${recipeId}`].push(imageLink);
+        searchResults[`${recipeId}`].push(parsedList);
+        searchResults[`${recipeId}`].push(instructionList);
         console.log(searchResults);
 
         recipeLink.addEventListener("click", function () {
             console.log(recipeLink)
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
-        
+
+            // var recipeInfo = searchResults
+            localStorage.setItem("selected", JSON.stringify(searchResults[recipeId]));
             
             if (clickedRecipeTitle !== null) {
                
@@ -150,11 +152,11 @@ function displayData(data) {
 
 // Event Listener for which recipe is pressed on
 
-$('#search-results').click(function(event){
+// $('#search-results').click(function(event){
     // Getting the id of the element that has been clicked on 
-    var recipeIndex = event.target.id;
-    console.log(recipeIndex);
-    var recipeInfo = searchResults[recipeIndex];
+    // var recipeIndex = event.target.id;
+    // console.log(recipeIndex);
+    // var recipeInfo = searchResults[recipeIndex];
 
     // Adding recipe information to recipe page
     // Extracting information of recipe
@@ -181,9 +183,9 @@ $('#search-results').click(function(event){
     //     $(`#steps`).append(insEl);
     // };
 
-    localStorage.setItem("selected", JSON.stringify(recipeInfo));
+    // localStorage.setItem("selected", JSON.stringify(recipeInfo));
 
-});
+// });
 
 
 if (instructionButton) {

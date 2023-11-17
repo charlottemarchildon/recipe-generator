@@ -4,7 +4,12 @@ recipeInfo = JSON.parse(recipeInfo);
 console.log(recipeInfo);
 
 $(`#food-name`).text(recipeInfo[1]);
-$(`#food-picture`).attr("src", recipeInfo[2]);
+
+var image = recipeInfo[2];
+var imageLink = image.substring(image.indexOf('(') + 1, image.lastIndexOf(')'));
+console.log(imageLink);
+
+$(`#food-picture`).attr("src", imageLink);
 
 for (var i = 0; i < recipeInfo.length; i++) {
     var ingEl = $("<li></li>");
