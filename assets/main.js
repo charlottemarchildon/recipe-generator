@@ -1,38 +1,43 @@
 let searchInput = document.querySelector("#search")
 let recipeForm = document.getElementById("recipe-form")
 let instructionButton = document.getElementById("instructionButton")
+let recipeCard = document.querySelector(".recipe");
 
-recipeForm.addEventListener("submit", async function (event) {
+var searchResults = {};
 
-    event.preventDefault();
-    console.log("click");
-    let searchInput = document.querySelector(".typeahead").value.trim()
-    console.log(searchInput)
+if (recipeForm) {
+    recipeForm.addEventListener("submit", async function (event) {
+        
+        event.preventDefault();
+        console.log("click");
+        let searchInput = document.querySelector(".typeahead").value.trim()
+        console.log(searchInput)
 
-    async function fetchData() {
+        async function fetchData() {
 
 
-        const url = `https://food-recipes-with-images.p.rapidapi.com/?q=${searchInput}`;
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': 'c7274ee214msh7c69092222f1054p1d1942jsn85ff4436e42b',
-                'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
+            const url = `https://food-recipes-with-images.p.rapidapi.com/?q=${searchInput}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': 'c7274ee214msh7c69092222f1054p1d1942jsn85ff4436e42b',
+                    'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const data = await response.json();
+                displayData(data);
+                console.log(data);
+            } catch (error) {
+                console.error(error);
             }
-        };
-
-        try {
-            const response = await fetch(url, options);
-            const data = await response.json();
-            displayData(data);
-            console.log(data);
-        } catch (error) {
-            console.error(error);
         }
-    }
 
-    fetchData();
-});
+        fetchData();
+    });
+};
 
 document.addEventListener('DOMContentLoaded', function () {
     var instructionButton = document.getElementById('instructionButton');
@@ -41,8 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Variable to hold search results
-
-var searchResults = {};
 
 function displayData(data) {
     let results = document.querySelector("#search-results");
@@ -139,51 +142,61 @@ function displayData(data) {
             }
         });
     }
-}
+};
 
 // Event Listener for which recipe is pressed on
 
+if (recipeCard) {
+    $('.recipe').click(function(event){
+        // Getting the id of the element that has been clicked on 
+        var recipeIndex = event.target.id;
+
         // Adding recipe information to recipe page
+        // Extracting information of recipe
+        // index 0 ID
+        // index 1 Recipe Name
+        // index 2 Image URL
+        // index 3 Ingredients
+        // index 4 Instructions
 
-        // $(`#food-picture`).attr("src", imageLink);
-        // $(`#food-name`).text(`${data.d[i].Title}`);
+        $(`#food-name`).text(searchResults[recipeIndex][1]);
+        $(`#food-picture`).attr("src", searchResults[recipeIndex][2]);
 
-        // var ingredientList = JSON.stringify(data.d[i].Ingredients);
-        // var parsedList = ingredientList.split(`,"`);
-        // console.log(parsedList);
-        // for (var c = 0; i < parsedList.length; c++) {
-        //     var ingEl = $("<li></li>");
-        //     var ing = parsedList[c].substring(parsedList[c].indexOf(':"') + 2, parsedList[c].lastIndexOf('"'));
-        //     ingEl.text(ing);
-        //     $(`#ing-list`).append(ingEl);
-        // }
+        for (var c = 0; i < parsedList.length; c++) {
+            var ingEl = $("<li></li>");
+            var ing = parsedList[c].substring(parsedList[c].indexOf(':"') + 2, parsedList[c].lastIndexOf('"'));
+            ingEl.text(ing);
+            $(`#ing-list`).append(ingEl);
+        };
 
-        // var instructionList = data.d[i].Instructions;
-        // instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
-        // console.log(instructionList);
-        // for (var n=0; i < instructionList.length; n++) {
-        //     var insEl = $("<li></li>");
-        //     var ins = instructionList[n];
-        //     insEl.text(ins);
-        //     $(`#steps`).append(insEl);
-        // }
+        for (var n=0; i < instructionList.length; n++) {
+            var insEl = $("<li></li>");
+            var ins = instructionList[n];
+            insEl.text(ins);
+            $(`#steps`).append(insEl);
+        };
+
+    });
+};
 
 
-instructionButton.addEventListener('click', async function () {
-  
-    const id = getLocalStorage("userRecipes");
-    console.log(id[0], "hello");
+if (instructionButton) {
+    instructionButton.addEventListener('click', async function () {
+    
+        const id = getLocalStorage("userRecipes");
+        console.log(id[0], "hello");
 
-    for (let i = 0; i < id.length; i++) {
-        console.log(id[i]);
-        try {
-            const data = await fetchData(id[i]);
-            console.log(data);
-        } catch (error) {
-            console.error(error);
+        for (let i = 0; i < id.length; i++) {
+            console.log(id[i]);
+            try {
+                const data = await fetchData(id[i]);
+                console.log(data);
+            } catch (error) {
+                console.error(error);
+            }
         }
-    }
-});
+    });
+};
 
 async function fetchData(id) {
     const url = `https://food-recipes-with-images.p.rapidapi.com/?q=${id}`;

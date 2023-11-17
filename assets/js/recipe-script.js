@@ -1,56 +1,32 @@
-var searchInput = "French Toast"
+// document.getElementsByClassName('recipe').click(function(event){
+    // Getting the id of the element that has been clicked on 
+    // var recipeIndex = event.target.id;
 
-async function fetchData() {
+    // Adding recipe information to recipe page
+    // Extracting information of recipe
+    // index 0 ID
+    // index 1 Recipe Name
+    // index 2 Image URL
+    // index 3 Ingredients
+    // index 4 Instructions
 
-    const url = 'https://food-recipes-with-images.p.rapidapi.com/?q=chicken%20soup';
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '74c3277fc3msh2b0e661bb1bd376p14e8c4jsn45af05e0e755',
-            'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
-        }
-    };
+//     var recipeInfo = main.$(`#${recipeIndex}`);
 
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        console.log(data);
+//     $(`#food-name`).text(recipeInfo[1]);
+//     $(`#food-picture`).attr("src", recipeInfo[2]);
 
-        // Image of Food
-        // var imageLink = data.d[0].Image;
-        // imageLink = imageLink.replace("//", "https://");
-        // $(`#food-picture`).attr("src", imageLink);
+//     for (var c = 0; i < parsedList.length; c++) {
+//         var ingEl = $("<li></li>");
+//         var ing = parsedList[c].substring(parsedList[c].indexOf(':"') + 2, parsedList[c].lastIndexOf('"'));
+//         ingEl.text(ing);
+//         $(`#ing-list`).append(ingEl);
+//     };
 
-        // // Name of Food
-        // var foodName = data.d[0].Title;
-        // $(`#food-name`).text(foodName);
+//     for (var n=0; i < instructionList.length; n++) {
+//         var insEl = $("<li></li>");
+//         var ins = instructionList[n];
+//         insEl.text(ins);
+//         $(`#steps`).append(insEl);
+//     };
 
-        // Ingredients Used
-        // var ingredientList = JSON.stringify(data.d[3].Ingredients);
-        // var parsedList = ingredientList.split(`,"`);
-        // console.log(ingredientList);
-        // for (var i = 0; i < parsedList.length; i++) {
-        //     var ingEl = $("<li></li>");
-        //     var ing = parsedList[i].substring(parsedList[i].indexOf(':"') + 2, parsedList[i].lastIndexOf('"'));
-        //     ingEl.text(ing);
-        //     $(`#ing-list`).append(ingEl);
-        // }
-
-        // Instructions
-        // var instructionList = data.d[0].Instructions;
-        // instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
-        // console.log(instructionList);
-        // for (var i=0; i < instructionList.length; i++) {
-        //     var insEl = $("<li></li>");
-        //     var ins = instructionList[i];
-        //     insEl.text(ins);
-        //     $(`#steps`).append(insEl);
-        // }
-
-    } catch (error) {
-        console.error(error);
-    }
-
-}
-
-fetchData();
+// });
