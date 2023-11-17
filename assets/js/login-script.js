@@ -26,10 +26,15 @@ function signupBox() {
     signupWindow.show();
 }
 
+/*
+Username and password variables assigned to the 'username' and 'password' field ids.
+rememberUser is assigned to the checkbox.
+existingUser looks for a username in the local storage.
+*/
 function login() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
-    const rememberUser = document.getElementById('rememberUser');
+    const rememberUser = document.getElementById('rememberUser').checked;
     const existingUser = localStorage.getItem(username);
 
     if (existingUser && password === existingUser) {
