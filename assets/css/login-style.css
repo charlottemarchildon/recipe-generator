@@ -133,3 +133,8 @@ Login and sign up buttons are centered on the page.
     height: 75vh;
     margin-left: 40%;
 }
+
+.contact {
+   text-align:  center;
+    color: rgb(98, 68, 32);
+}
