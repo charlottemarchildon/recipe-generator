@@ -19,6 +19,9 @@ function loginBox() {
     }
 }
 
+/*
+Sign up window will show when button is triggered.
+*/
 function signupBox() {
     signupWindow.show();
 }
