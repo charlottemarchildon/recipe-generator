@@ -43,7 +43,7 @@ veganButton.addEventListener("click", async function (event) {
     const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '74c3277fc3msh2b0e661bb1bd376p14e8c4jsn45af05e0e755',
+		'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
 		'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
 	    }
     };
@@ -51,7 +51,7 @@ veganButton.addEventListener("click", async function (event) {
     try {
         const response = await fetch(url, options);
         const veganResult = await response.json();
-        console.log(veganResult[0]);
+        console.log(veganResult);
         displayVeganData(veganResult);
     } catch (error) {
         console.error(error);
@@ -118,7 +118,7 @@ function displayData(data) {
 
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
-            localStorage.setItem("selected", JSON.stringify(searchResults[recipeId]));
+            localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
 
             if (clickedRecipeTitle !== null) {
 
@@ -152,6 +152,116 @@ function displayData(data) {
 
     }
 }
+
+async function fetchVeganInfo(veganID) {
+    const url = `https://the-vegan-recipes-db.p.rapidapi.com/${veganID}`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+            'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
+        }
+    };
+    
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        console.log(result);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+
+// Displaying vegan API data
+
+function displayVeganData(data) {
+    let results = document.querySelector("#search-results");
+    var test1 = fetchVeganInfo(10);
+    console.log(test1);
+    results.innerHTML = "";
+    for (let i = 0; i < data.length; i++) {
+        let resultEl = document.createElement("div");
+        resultEl.className = "recipe";
+        let titleEl = document.createElement("p");
+        titleEl.className = "titleEl";
+        let idEl = document.createElement("p");
+        idEl.className = "idEl";
+        let imageEl = document.createElement("div");
+        imageEl.className = "recipeImage";
+        let recipeLink = document.createElement("a");
+        recipeLink.className = "recipeLink";
+
+        resultEl.appendChild(titleEl);
+        resultEl.appendChild(recipeLink)
+        recipeLink.appendChild(titleEl);
+        recipeLink.appendChild(imageEl);
+        recipeLink.appendChild(idEl);
+        results.appendChild(resultEl);
+
+        let recipeId = data[i].id;
+        idEl.textContent = recipeId;
+        titleEl.textContent = `${data[i].title}`;
+        recipeLink.href = `recipe.html`
+        let imageLink = `url(${data[i].image})`
+        imageEl.style.backgroundImage = imageLink;
+        imageEl.textContent = ""
+
+        // Storing recipe information
+
+        recipeLink.addEventListener("click", function () {
+
+            var veganInfo = fetchVeganInfo(recipeId);
+
+            searchResults[`${recipeId}`] = [];
+
+            // Pulls list of ingredients
+
+            var ingredientList = veganInfo.ingredients;
+
+            // Pulls list of instructions 
+            var instructionList = veganInfo.method;
+
+            searchResults[`${recipeId}`].push(recipeId);
+            searchResults[`${recipeId}`].push(`${data[i].title}`);
+            searchResults[`${recipeId}`].push(imageLink);
+            searchResults[`${recipeId}`].push(ingredientList);
+            searchResults[`${recipeId}`].push(instructionList);
+
+            let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
+
+            localStorage.setItem("vegan-selected", JSON.stringify(searchResults[recipeId]));
+
+            if (clickedRecipeTitle !== null) {
+
+                clickedRecipeTitle = Number(clickedRecipeTitle[0]);
+
+            } else {
+                console.log("No numeric values found");
+                return;
+            }
+
+            function getLocalStorage(key) {
+                const storedData = localStorage.getItem(key);
+                return storedData ? JSON.parse(storedData) : null;
+            }
+
+            function setLocalStorage(key, value) {
+                localStorage.setItem(key, JSON.stringify(value));
+            }
+
+            const existingData = getLocalStorage('userRecipes') || [];
+
+            if (!existingData.includes(clickedRecipeTitle)) {
+                existingData.push(clickedRecipeTitle);
+                setLocalStorage('userRecipes', existingData);
+                console.log('Recipe title added to local storage:', clickedRecipeTitle);
+            } else {
+                console.log('Recipe title is already in local storage:', clickedRecipeTitle);
+            }
+        });
+}
+};
 
 document.addEventListener('DOMContentLoaded', async function () {
     const id = getLocalStorage("userRecipes");
