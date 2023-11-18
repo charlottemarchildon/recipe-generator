@@ -11,7 +11,7 @@ console.log(imageLink);
 
 $(`#food-picture`).attr("src", imageLink);
 
-for (var i = 0; i < recipeInfo.length; i++) {
+for (var i = 0; i < recipeInfo[3].length; i++) {
     var ingEl = $("<li></li>");
     var ing = recipeInfo[3][i].substring(recipeInfo[3][i].indexOf(':"') + 2, recipeInfo[3][i].lastIndexOf('"'));
     ingEl.text(ing);
