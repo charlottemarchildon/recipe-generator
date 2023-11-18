@@ -2,6 +2,7 @@ let searchInput = document.querySelector("#search")
 let recipeForm = document.getElementById("recipe-form")
 let instructionButton = document.getElementById("instructionButton")
 let clearSearchButton = document.getElementById("clearSearchButton")
+let veganButton = document.getElementById("vegan-button")
 
 var searchResults = {};
 
@@ -33,6 +34,31 @@ recipeForm.addEventListener("submit", async function (event) {
 
     fetchData();
 });
+
+veganButton.addEventListener("click", async function (event) {
+
+    event.preventDefault();
+
+    const url = 'https://the-vegan-recipes-db.p.rapidapi.com/';
+    const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '74c3277fc3msh2b0e661bb1bd376p14e8c4jsn45af05e0e755',
+		'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
+	    }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const veganResult = await response.json();
+        console.log(veganResult[0]);
+        displayVeganData(veganResult);
+    } catch (error) {
+        console.error(error);
+    }
+})
+
+// Displaying general recipe API
 
 function displayData(data) {
     let results = document.querySelector("#search-results");
