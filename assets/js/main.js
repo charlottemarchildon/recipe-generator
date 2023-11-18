@@ -2,6 +2,11 @@ let searchInput = document.querySelector("#search")
 let recipeForm = document.getElementById("recipe-form")
 let instructionButton = document.getElementById("instructionButton")
 let clearSearchButton = document.getElementById("clearSearchButton")
+let recipeCard = document.querySelector(".recipe");
+let userInput = document.querySelector(".typeahead");
+let recipePage = document.querySelector(".instruction");
+
+var searchResults = {};
 
 recipeForm.addEventListener("submit", async function (event) {
 
@@ -63,6 +68,28 @@ function displayData(data) {
         imageLink = imageLink.replace("//", "https://");
         imageEl.style.backgroundImage = imageLink;
         imageEl.textContent = ""
+
+        // Storing information of recipe
+        // index 0 ID
+        // index 1 Recipe Name
+        // index 2 Image URL
+        // index 3 Ingredients
+        // index 4 Instructions
+
+        searchResults[`${recipeId}`] = [];
+
+        var ingredientList = JSON.stringify(data.d[i].Ingredients);
+        var parsedList = ingredientList.split(`,"`);
+
+        var instructionList = data.d[i].Instructions;
+        instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
+
+        searchResults[`${recipeId}`].push(recipeId);
+        searchResults[`${recipeId}`].push(`${data.d[i].Title}`);
+        searchResults[`${recipeId}`].push(imageLink);
+        searchResults[`${recipeId}`].push(parsedList);
+        searchResults[`${recipeId}`].push(instructionList);
+        console.log(searchResults);
 
         recipeLink.addEventListener("click", function () {
 
