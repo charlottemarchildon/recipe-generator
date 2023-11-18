@@ -2,9 +2,6 @@ let searchInput = document.querySelector("#search")
 let recipeForm = document.getElementById("recipe-form")
 let instructionButton = document.getElementById("instructionButton")
 let clearSearchButton = document.getElementById("clearSearchButton")
-let recipeCard = document.querySelector(".recipe");
-let userInput = document.querySelector(".typeahead");
-let recipePage = document.querySelector(".instruction");
 
 var searchResults = {};
 
@@ -95,6 +92,7 @@ function displayData(data) {
 
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
+            localStorage.setItem("selected", JSON.stringify(searchResults[recipeId]));
 
             if (clickedRecipeTitle !== null) {
 
