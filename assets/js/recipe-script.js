@@ -1,5 +1,10 @@
 var generalRecipe = localStorage.getItem("general-selected");
-var veganRecipe = localStorage.getItem("vegan-selected");
+var veganID = localStorage.getItem("vegan-selected");
+
+var veganTitle;
+var veganImage;
+var veganIngredient;
+var veganInstruction;
 
 if (generalRecipe !== null) {
     generalRecipe = JSON.parse(generalRecipe);
@@ -26,29 +31,48 @@ if (generalRecipe !== null) {
         insEl.text(ins);
         $(`#steps`).append(insEl);
     };
-} else if (veganRecipe !== null) {
-    veganRecipe = JSON.parse(veganRecipe);
-    console.log(veganRecipe);
+} else if (veganID !== null) {
 
-    $(`#food-name`).text(veganRecipe[1]);
+    async function fetchVeganInfo(veganID) {
+        const url = `https://the-vegan-recipes-db.p.rapidapi.com/${veganID}`;
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+                'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
+            }
+        };
+        
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+        
+            veganTitle = result.title;
+            console.log(veganTitle)
+            $(`#food-name`).text(veganTitle);
 
-    var image = veganRecipe[2];
-    var imageLink = image.substring(image.indexOf('(') + 1, image.lastIndexOf(')'));
-    console.log(imageLink);
+            veganImage = result.image;
+            $(`#food-picture`).attr("src", veganImage);
 
-    $(`#food-picture`).attr("src", imageLink);
+            veganIngredient = result.ingredients;
+            for (var i = 0; i < veganIngredient.length; i++) {
+                var ingEl = $("<li></li>");
+                var ing = veganIngredient[i];
+                ingEl.text(ing);
+                $(`#ing-list`).append(ingEl);
+            };
 
-    for (var i = 0; i < veganRecipe[3].length; i++) {
-        var ingEl = $("<li></li>");
-        var ing = veganRecipe[3][i].substring(veganRecipe[3][i].indexOf(':"') + 2, veganRecipe[3][i].lastIndexOf('"'));
-        ingEl.text(ing);
-        $(`#ing-list`).append(ingEl);
+            veganInstruction = result.method;
+            console.log(veganInstruction);
+            for (var n=0; n < veganInstruction.length; n++) {
+                var insEl = $("<li></li>");
+                var ins = veganInstruction[n];
+                insEl.text(ins);
+                $(`#steps`).append(insEl);
+            };
+        } catch (error) {
+            console.error(error);
+        }
     };
-
-    for (var n=0; n < veganRecipe[4].length; n++) {
-        var insEl = $("<li></li>");
-        var ins = veganRecipe[4][n];
-        insEl.text(ins);
-        $(`#steps`).append(insEl);
-    };
+    fetchVeganInfo(veganID)
 }
