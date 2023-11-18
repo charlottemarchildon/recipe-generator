@@ -4,6 +4,10 @@ body {
 
 .typeahead {
   width: 32.5%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 
 #recipe-form {
@@ -62,6 +66,14 @@ body {
   position: fixed;
   bottom: 0;
   left: 26%;
+}
+
+#clearSearchButton {
+  position: fixed;
+  bottom: 0;
+  left: 38%;
+  color: white;
+
 }
 
 #search-results {
@@ -174,4 +186,8 @@ nav {
 
 .idEl {
   visibility: hidden;
+}
+
+.hidden {
+  display: none;
 }
