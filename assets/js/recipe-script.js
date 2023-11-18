@@ -8,13 +8,11 @@ var veganInstruction;
 
 if (generalRecipe !== null) {
     generalRecipe = JSON.parse(generalRecipe);
-    console.log(generalRecipe);
 
     $(`#food-name`).text(generalRecipe[1]);
 
     var image = generalRecipe[2];
     var imageLink = image.substring(image.indexOf('(') + 1, image.lastIndexOf(')'));
-    console.log(imageLink);
 
     $(`#food-picture`).attr("src", imageLink);
 
@@ -62,11 +60,20 @@ if (generalRecipe !== null) {
                 $(`#ing-list`).append(ingEl);
             };
 
-            veganInstruction = result.method;
-            console.log(veganInstruction);
-            for (var n=0; n < veganInstruction.length; n++) {
+            var fullInstructions = [];
+            var veganFull = result.method;
+
+            for (var i = 0; i < veganFull.length; i++) {
+                var section = JSON.stringify(result.method[i]);
+                section = section.substring(section.indexOf(':"') + 2, section.lastIndexOf('"'))
+                section = section.split(". ");
+                for (n = 0; n < section.length; n++) {
+                    fullInstructions.push(section[n]);
+                }
+            }
+            for (var n=0; n < fullInstructions.length; n++) {
                 var insEl = $("<li></li>");
-                var ins = veganInstruction[n];
+                var ins = fullInstructions[n];
                 insEl.text(ins);
                 $(`#steps`).append(insEl);
             };
