@@ -1,9 +1,14 @@
 let searchInput = document.querySelector("#search")
 let recipeForm = document.getElementById("recipe-form")
 let instructionButton = document.getElementById("instructionButton")
+let recipeCard = document.querySelector(".recipe");
+let userInput = document.querySelector(".typeahead");
+let recipePage = document.querySelector(".instruction");
+
+var searchResults = {};
 
 recipeForm.addEventListener("submit", async function (event) {
-
+    
     event.preventDefault();
     console.log("click");
     let searchInput = document.querySelector(".typeahead").value.trim()
@@ -40,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
     collapseExample.show();
 });
 
+// Variable to hold search results
+
 function displayData(data) {
     let results = document.querySelector("#search-results");
     results.innerHTML = "";
@@ -55,6 +62,8 @@ function displayData(data) {
         imageEl.className = "recipeImage";
         let recipeLink = document.createElement("a");
         recipeLink.className = "recipeLink";
+        // Adding id to recipeLink which corresponds to it's index number
+        resultEl.id = `${i}`;
 
         resultEl.appendChild(titleEl);
         resultEl.appendChild(recipeLink)
@@ -66,7 +75,8 @@ function displayData(data) {
         let recipeId = data.d[i].id;
         idEl.textContent = recipeId;
         titleEl.textContent = `${data.d[i].Title}`;
-        recipeLink.href = `#`
+        // Connect to recipe page
+        recipeLink.href = `recipe.html`;
         console.log(titleEl)
         let imageLink = `url(${data.d[i].Image})`
         console.log(imageLink);
@@ -75,10 +85,34 @@ function displayData(data) {
         imageEl.textContent = ""
         console.log(data.d[i].Image);
 
+        // Storing information of recipe
+        // index 0 ID
+        // index 1 Recipe Name
+        // index 2 Image URL
+        // index 3 Ingredients
+        // index 4 Instructions
+
+        searchResults[`${recipeId}`] = [];
+
+        var ingredientList = JSON.stringify(data.d[i].Ingredients);
+        var parsedList = ingredientList.split(`,"`);
+
+        var instructionList = data.d[i].Instructions;
+        instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
+
+        searchResults[`${recipeId}`].push(recipeId);
+        searchResults[`${recipeId}`].push(`${data.d[i].Title}`);
+        searchResults[`${recipeId}`].push(imageLink);
+        searchResults[`${recipeId}`].push(parsedList);
+        searchResults[`${recipeId}`].push(instructionList);
+        console.log(searchResults);
+
         recipeLink.addEventListener("click", function () {
             console.log(recipeLink)
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
-        
+
+            // var recipeInfo = searchResults
+            localStorage.setItem("selected", JSON.stringify(searchResults[recipeId]));
             
             if (clickedRecipeTitle !== null) {
                
@@ -109,13 +143,11 @@ function displayData(data) {
                 console.log('Recipe title is already in local storage:', clickedRecipeTitle);
             }
         });
-        
-
     }
-}
+};
 
 instructionButton.addEventListener('click', async function () {
-  
+
     const id = getLocalStorage("userRecipes");
     console.log(id[0], "hello");
 
@@ -363,5 +395,3 @@ $input.change(function () {
         }
     }
 });
-
-

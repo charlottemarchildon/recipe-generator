@@ -1,56 +1,26 @@
-var searchInput = "French Toast"
+var recipeInfo = localStorage.getItem("selected");
 
-async function fetchData() {
+recipeInfo = JSON.parse(recipeInfo);
+console.log(recipeInfo);
 
-    const url = 'https://food-recipes-with-images.p.rapidapi.com/?q=chicken%20soup';
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '74c3277fc3msh2b0e661bb1bd376p14e8c4jsn45af05e0e755',
-            'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
-        }
-    };
+$(`#food-name`).text(recipeInfo[1]);
 
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        console.log(data);
+var image = recipeInfo[2];
+var imageLink = image.substring(image.indexOf('(') + 1, image.lastIndexOf(')'));
+console.log(imageLink);
 
-        // Image of Food
-        var imageLink = data.d[0].Image;
-        imageLink = imageLink.replace("//", "https://");
-        $(`#food-picture`).attr("src", imageLink);
+$(`#food-picture`).attr("src", imageLink);
 
-        // Name of Food
-        var foodName = data.d[0].Title;
-        $(`#food-name`).text(foodName);
+for (var i = 0; i < recipeInfo.length; i++) {
+    var ingEl = $("<li></li>");
+    var ing = recipeInfo[3][i].substring(recipeInfo[3][i].indexOf(':"') + 2, recipeInfo[3][i].lastIndexOf('"'));
+    ingEl.text(ing);
+    $(`#ing-list`).append(ingEl);
+};
 
-        // Ingredients Used
-        var ingredientList = JSON.stringify(data.d[3].Ingredients);
-        var parsedList = ingredientList.split(`,"`);
-        console.log(ingredientList);
-        for (var i = 0; i < parsedList.length; i++) {
-            var ingEl = $("<li></li>");
-            var ing = parsedList[i].substring(parsedList[i].indexOf(':"') + 2, parsedList[i].lastIndexOf('"'));
-            ingEl.text(ing);
-            $(`#ing-list`).append(ingEl);
-        }
-
-        // Instructions
-        var instructionList = data.d[0].Instructions;
-        instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
-        console.log(instructionList);
-        for (var i=0; i < instructionList.length; i++) {
-            var insEl = $("<li></li>");
-            var ins = instructionList[i];
-            insEl.text(ins);
-            $(`#steps`).append(insEl);
-        }
-
-    } catch (error) {
-        console.error(error);
-    }
-
-}
-
-fetchData();
+for (var n=0; n < recipeInfo[4].length; n++) {
+    var insEl = $("<li></li>");
+    var ins = recipeInfo[4][n];
+    insEl.text(ins);
+    $(`#steps`).append(insEl);
+};
