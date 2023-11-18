@@ -60,7 +60,7 @@ function displayData(data) {
         let recipeId = data.d[i].id;
         idEl.textContent = recipeId;
         titleEl.textContent = `${data.d[i].Title}`;
-        recipeLink.href = `#`
+        recipeLink.href = `#recipe.html`
         let imageLink = `url(${data.d[i].Image})`
         imageLink = imageLink.replace("//", "https://");
         imageEl.style.backgroundImage = imageLink;
