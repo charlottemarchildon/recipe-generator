@@ -202,7 +202,7 @@ function displayVeganData(data) {
             } else {
                 var vID = JSON.parse(localStorage.getItem("vegan-ID"));
                 vID.push(recipeId);
-                localStorage.setItem("previousSaved", JSON.stringify(vID));
+                localStorage.setItem("vegan-ID", JSON.stringify(vID));
             }
 
             if (clickedRecipeTitle !== null) {
