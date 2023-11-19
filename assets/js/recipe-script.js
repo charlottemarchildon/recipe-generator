@@ -1,5 +1,8 @@
-var generalRecipe = localStorage.getItem("general-selected");
-var veganID = localStorage.getItem("vegan-selected");
+var generalRecipe = localStorage.getItem("general-selected"); // stores all info
+var veganID = localStorage.getItem("vegan-selected"); // stores ID
+var storedID = localStorage.getItem("userRecipes"); // All stored IDs 
+
+var previousInfo = {};
 
 var veganTitle;
 var veganImage;
@@ -7,7 +10,11 @@ var veganIngredient;
 var veganInstruction;
 
 if (generalRecipe !== null) {
+
     generalRecipe = JSON.parse(generalRecipe);
+    var previousGeneral = [...generalRecipe];
+    previousInfo[`${generalRecipe[0]}`] = previousGeneral;
+    localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
 
     $(`#food-name`).text(generalRecipe[1]);
 
@@ -44,6 +51,8 @@ if (generalRecipe !== null) {
         try {
             const response = await fetch(url, options);
             const result = await response.json();
+            
+            var previousVegan = [];
         
             veganTitle = result.title;
             console.log(veganTitle)
@@ -77,9 +86,21 @@ if (generalRecipe !== null) {
                 insEl.text(ins);
                 $(`#steps`).append(insEl);
             };
+
+            previousVegan.push(result.id);
+            previousVegan.push(veganTitle);
+            previousVegan.push(veganImage);
+            previousVegan.push(veganFull);
+
+            previousInfo[`${result.id}`] = previousVegan;
+            localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));;
+
         } catch (error) {
             console.error(error);
         }
     };
     fetchVeganInfo(veganID)
 }
+
+
+
