@@ -1,20 +1,42 @@
 var generalRecipe = localStorage.getItem("general-selected"); // stores all info
 var veganID = localStorage.getItem("vegan-selected"); // stores ID
-var storedID = localStorage.getItem("userRecipes"); // All stored IDs 
-
-var previousInfo = {};
+var storedID = JSON.parse(localStorage.getItem("userRecipes")); // All stored IDs 
 
 var veganTitle;
 var veganImage;
 var veganIngredient;
 var veganInstruction;
 
+var previousInfo = {};
+
+function displayPrevious() {
+    if (localStorage.getItem("previousSaved") !== null) {
+        var previous = localStorage.getItem("previousSaved");
+        previous = JSON.parse(previous);
+
+        for (i = 0; i < storedID.length; i++) {
+            var index = storedID[i];
+            var r = previous[index];
+            console.log(r[1]);
+
+            var previousCard = $("<li></li>");
+            previousCard.addClass("history-card");
+            previousCard.text(r[1]);
+
+            var image = r[2].substring(r[2].indexOf('(') + 1, r[2].lastIndexOf(')'));
+
+            var previousImage = $("<img>");
+            previousCard.append(previousImage);
+            previousImage.attr("src", image);
+
+            $(".history").append(previousCard);
+        }
+    }
+}
+
 if (generalRecipe !== null) {
 
     generalRecipe = JSON.parse(generalRecipe);
-    var previousGeneral = [...generalRecipe];
-    previousInfo[`${generalRecipe[0]}`] = previousGeneral;
-    localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
 
     $(`#food-name`).text(generalRecipe[1]);
 
@@ -36,6 +58,21 @@ if (generalRecipe !== null) {
         insEl.text(ins);
         $(`#steps`).append(insEl);
     };
+
+    var previousGeneral = [...generalRecipe];
+    previousInfo[`${generalRecipe[0]}`] = previousGeneral;
+    localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
+
+    if (localStorage.getItem("previousSaved") === null){
+        var previousSavedInfo = {};
+        previousSavedInfo[`${generalRecipe[0]}`] = previousGeneral;
+        localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
+    } else {
+        var previousSavedInfo = JSON.parse(localStorage.getItem("previousSaved"));
+        previousSavedInfo[`${generalRecipe[0]}`] = previousGeneral;
+        localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
+    }
+
 } else if (veganID !== null) {
 
     async function fetchVeganInfo(veganID) {
@@ -102,5 +139,4 @@ if (generalRecipe !== null) {
     fetchVeganInfo(veganID)
 }
 
-
-
+displayPrevious();

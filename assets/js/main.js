@@ -18,7 +18,7 @@ recipeForm.addEventListener("submit", async function (event) {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': 'c7274ee214msh7c69092222f1054p1d1942jsn85ff4436e42b',
+                'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
                 'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
             }
         };
@@ -86,7 +86,7 @@ function displayData(data) {
         let recipeId = data.d[i].id;
         idEl.textContent = recipeId;
         titleEl.textContent = `${data.d[i].Title}`;
-        recipeLink.href = `#recipe.html`
+        recipeLink.href = `recipe.html`
         let imageLink = `url(${data.d[i].Image})`
         imageLink = imageLink.replace("//", "https://");
         imageEl.style.backgroundImage = imageLink;
@@ -260,7 +260,7 @@ function displayRecipe(data) {
     let recipeId = data.d[0].id;
     idEl.textContent = recipeId;
     titleEl.textContent = `${data.d[0].Title}hello`;
-    recipeLink.href = `#`;
+    recipeLink.href = `recipe.html`;
     let imageLink = `url(${data.d[0].Image})`;
     imageLink = imageLink.replace("//", "https://");
     imageEl.style.backgroundImage = imageLink;
