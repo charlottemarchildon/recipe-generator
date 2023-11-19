@@ -7,6 +7,7 @@ var veganTitle;
 var veganImage;
 var veganIngredient;
 var veganInstruction;
+var veID;
 
 var previousInfo = {};
 
@@ -23,6 +24,7 @@ function displayPrevious() {
             if (localStorage.getItem("vegan-ID") !== null && JSON.parse(localStorage.getItem("vegan-ID").includes(index.toString()))) {
                 var previousCard = $("<li></li>");
                 previousCard.addClass("history-card");
+                previousCard.attr("id", `${index}`);
                 previousCard.text(r[1]);
 
                 var image = r[2];
@@ -35,6 +37,7 @@ function displayPrevious() {
             } else {
                 var previousCard = $("<li></li>");
                 previousCard.addClass("history-card");
+                previousCard.attr("id", `${index}`);
                 previousCard.text(r[1]);
     
                 var image = r[2].substring(r[2].indexOf('(') + 1, r[2].lastIndexOf(')'));
@@ -49,12 +52,8 @@ function displayPrevious() {
     }
 }
 
-if (generalRecipe !== null && curSelect === JSON.parse(generalRecipe)[0]) {
-
-
-    // Display general recipe details
-
-    generalRecipe = JSON.parse(generalRecipe);
+function displayGeneral(recipe) {
+    generalRecipe = JSON.parse(recipe);
 
     $(`#food-name`).text(generalRecipe[1]);
 
@@ -76,6 +75,42 @@ if (generalRecipe !== null && curSelect === JSON.parse(generalRecipe)[0]) {
         insEl.text(ins);
         $(`#steps`).append(insEl);
     };
+}
+
+function storeVegan (id, title, image, ing, instr) {
+
+    var previousVegan = []; 
+
+    previousVegan.push(id);
+    previousVegan.push(title);
+    previousVegan.push(image);
+    previousVegan.push(ing);
+    previousVegan.push(instr);
+
+    previousInfo[`${id}`] = previousVegan;
+    localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
+
+    if (localStorage.getItem("previousSaved") === null){
+        var previousSavedInfo = {};
+        previousSavedInfo[`${id}`] = previousVegan;
+        localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
+    } else {
+        var previousSavedInfo = JSON.parse(localStorage.getItem("previousSaved"));
+        previousSavedInfo[`${id}`] = previousVegan;
+        console.log(previousSavedInfo);
+        localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
+    }
+};
+
+console.log(curSelect === storedID[0])
+console.log(generalRecipe !== null);
+console.log(typeof(curSelect));
+console.log(typeof(storedID[0]))
+if (generalRecipe !== null && Number(curSelect) === storedID.slice(-1)[0]) {
+
+    // Display general recipe details
+
+    displayGeneral(generalRecipe);
 
     // Locally storing general recipe information
 
@@ -107,11 +142,11 @@ if (generalRecipe !== null && curSelect === JSON.parse(generalRecipe)[0]) {
         try {
             const response = await fetch(url, options);
             const result = await response.json();
-            
-            var previousVegan = [];
 
             // Displaying vegan recipe data
-        
+            
+            veID = result.id;
+
             veganTitle = result.title;
             console.log(veganTitle)
             $(`#food-name`).text(veganTitle);
@@ -147,25 +182,7 @@ if (generalRecipe !== null && curSelect === JSON.parse(generalRecipe)[0]) {
 
             // Locally storing vegan recipe information
 
-            previousVegan.push(result.id);
-            previousVegan.push(veganTitle);
-            previousVegan.push(veganImage);
-            previousVegan.push(veganIngredient);
-            previousVegan.push(veganFull);
-
-            previousInfo[`${result.id}`] = previousVegan;
-            localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
-        
-            if (localStorage.getItem("previousSaved") === null){
-                var previousSavedInfo = {};
-                previousSavedInfo[`${result.id}`] = previousVegan;
-                localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
-            } else {
-                var previousSavedInfo = JSON.parse(localStorage.getItem("previousSaved"));
-                previousSavedInfo[`${result.id}`] = previousVegan;
-                console.log(previousSavedInfo);
-                localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
-            }
+            storeVegan(veID, veganTitle, veganImage, veganIngredient, veganInstruction);
 
         } catch (error) {
             console.error(error);
@@ -175,3 +192,10 @@ if (generalRecipe !== null && curSelect === JSON.parse(generalRecipe)[0]) {
 }
 
 displayPrevious();
+
+$(`.history-card`).on("click", function (e){
+    curSelect = e.target.id;
+    localStorage.setItem("currently-selected", curSelect);
+    console.log(curSelect);
+    window.location.href = "recipe.html";
+});
