@@ -295,6 +295,7 @@ clearSearchButton.addEventListener("click", function () {
         localStorage.setItem(key, JSON.stringify(value));
     }
     setLocalStorage("userRecipes", "")
+    localStorage.clear();
 })
 
 function getLocalStorage(key) {
