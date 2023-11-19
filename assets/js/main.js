@@ -18,7 +18,7 @@ recipeForm.addEventListener("submit", async function (event) {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+                'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
                 'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
             }
         };
@@ -91,6 +91,7 @@ function displayData(data) {
         imageLink = imageLink.replace("//", "https://");
         imageEl.style.backgroundImage = imageLink;
         imageEl.textContent = ""
+        
 
         // Storing information of recipe
         // index 0 ID
@@ -117,8 +118,10 @@ function displayData(data) {
         recipeLink.addEventListener("click", function () {
 
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
+            console.log(recipeId);
 
             localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+
             localStorage.setItem("currently-selected", recipeId);
 
             if (clickedRecipeTitle !== null) {
@@ -223,17 +226,17 @@ function displayVeganData(data) {
             //     localStorage.setItem(key, JSON.stringify(value));
             // }
 
-            const existingData = getLocalStorage('userRecipes') || [];
+        //     const existingData = getLocalStorage('userRecipes') || [];
 
-            if (!existingData.includes(clickedRecipeTitle)) {
-                existingData.push(clickedRecipeTitle);
-                setLocalStorage('userRecipes', existingData);
-                console.log('Recipe title added to local storage:', clickedRecipeTitle);
-            } else {
-                console.log('Recipe title is already in local storage:', clickedRecipeTitle);
-            }
+        //     if (!existingData.includes(clickedRecipeTitle)) {
+        //         existingData.push(clickedRecipeTitle);
+        //         setLocalStorage('userRecipes', existingData);
+        //         console.log('Recipe title added to local storage:', clickedRecipeTitle);
+        //     } else {
+        //         console.log('Recipe title is already in local storage:', clickedRecipeTitle);
+        //     }
         });
-}
+    }
 };
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -273,12 +276,20 @@ function displayRecipe(data) {
 
     let recipeId = data.d[0].id;
     idEl.textContent = recipeId;
-    titleEl.textContent = `${data.d[0].Title}hello`;
+    titleEl.textContent = `${data.d[0].Title}`;
     recipeLink.href = `recipe.html`;
     let imageLink = `url(${data.d[0].Image})`;
     imageLink = imageLink.replace("//", "https://");
     imageEl.style.backgroundImage = imageLink;
     imageEl.textContent = "";
+
+
+    // recipeLink.addEventListener("click", function () {
+
+    //     localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+
+    //     localStorage.setItem("currently-selected", recipeId);
+    // });
 }
 
 
@@ -287,7 +298,7 @@ async function fetchData(id) {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': 'c7274ee214msh7c69092222f1054p1d1942jsn85ff4436e42b',
+            'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
             'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
         }
     };
