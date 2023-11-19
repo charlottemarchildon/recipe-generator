@@ -17,7 +17,18 @@ function displayPrevious() {
         for (i = 0; i < storedID.length; i++) {
             var index = storedID[i];
             var r = previous[index];
-            console.log(r[1]);
+
+            if (storedID in JSON.parse(localStorage.getItem(vID))) {
+                var previousCard = $("<li></li>");
+                previousCard.addClass("history-card");
+                previousCard.text(r[1]);
+
+                var image = r[2];
+                previousCard.append(previousImage);
+                previousImage.attr("src", image);
+    
+                $(".history").append(previousCard);
+            }
 
             var previousCard = $("<li></li>");
             previousCard.addClass("history-card");
@@ -35,6 +46,8 @@ function displayPrevious() {
 }
 
 if (generalRecipe !== null) {
+
+    // Display general recipe details
 
     generalRecipe = JSON.parse(generalRecipe);
 
@@ -58,6 +71,8 @@ if (generalRecipe !== null) {
         insEl.text(ins);
         $(`#steps`).append(insEl);
     };
+
+    // Locally storing general recipe information
 
     var previousGeneral = [...generalRecipe];
     previousInfo[`${generalRecipe[0]}`] = previousGeneral;
@@ -90,6 +105,8 @@ if (generalRecipe !== null) {
             const result = await response.json();
             
             var previousVegan = [];
+
+            // Displaying vegan recipe data
         
             veganTitle = result.title;
             console.log(veganTitle)
@@ -124,13 +141,38 @@ if (generalRecipe !== null) {
                 $(`#steps`).append(insEl);
             };
 
+            // Locally storing vegan recipe information
+
             previousVegan.push(result.id);
             previousVegan.push(veganTitle);
             previousVegan.push(veganImage);
+            previousVegan.push(veganIngredient);
             previousVegan.push(veganFull);
 
             previousInfo[`${result.id}`] = previousVegan;
-            localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));;
+            localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
+        
+            if (localStorage.getItem("previousSaved") === null){
+                var previousSavedInfo = {};
+                previousSavedInfo[`${result.id}`] = previousVegan;
+                localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
+            } else {
+                var previousSavedInfo = JSON.parse(localStorage.getItem("previousSaved"));
+                previousSavedInfo[`${result.id}`] = previousVegan;
+                localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
+            }
+
+            // Saving veganIDs only
+
+            if (localStorage.getItem("vegan-ID") === null){
+                var vID = [];
+                vID.push(result.id);
+                localStorage.setItem("vegan-ID", JSON.stringify(vID));
+            } else {
+                var vID = JSON.parse(localStorage.getItem("vegan-ID"));
+                vID.push(result.id);
+                localStorage.setItem("previousSaved", JSON.stringify(vID));
+            }
 
         } catch (error) {
             console.error(error);
