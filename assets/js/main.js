@@ -119,6 +119,7 @@ function displayData(data) {
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
             localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+            localStorage.setItem("currently-selected", recipeId);
 
             if (clickedRecipeTitle !== null) {
 
@@ -192,6 +193,7 @@ function displayVeganData(data) {
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
             localStorage.setItem("vegan-selected", recipeId);
+            localStorage.setItem("currently-selected", recipeId);
 
             if (localStorage.getItem("vegan-ID") === null){
                 var vID = [];

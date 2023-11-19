@@ -1,6 +1,7 @@
 var generalRecipe = localStorage.getItem("general-selected"); // stores all info
 var veganID = localStorage.getItem("vegan-selected"); // stores ID
 var storedID = JSON.parse(localStorage.getItem("userRecipes")); // All stored IDs 
+var curSelect = localStorage.getItem("currently-selected");
 
 var veganTitle;
 var veganImage;
@@ -48,7 +49,8 @@ function displayPrevious() {
     }
 }
 
-if (generalRecipe !== null) {
+if (generalRecipe !== null && curSelect === JSON.parse(generalRecipe)[0]) {
+
 
     // Display general recipe details
 
@@ -91,8 +93,7 @@ if (generalRecipe !== null) {
         localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
     }
 
-} else if (veganID !== null) {
-
+} else if (veganID !== null && veganID === curSelect) {
     async function fetchVeganInfo(veganID) {
         const url = `https://the-vegan-recipes-db.p.rapidapi.com/${veganID}`;
         const options = {
@@ -151,7 +152,6 @@ if (generalRecipe !== null) {
             previousVegan.push(veganImage);
             previousVegan.push(veganIngredient);
             previousVegan.push(veganFull);
-            console.log(previousVegan);
 
             previousInfo[`${result.id}`] = previousVegan;
             localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
@@ -161,7 +161,6 @@ if (generalRecipe !== null) {
                 previousSavedInfo[`${result.id}`] = previousVegan;
                 localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
             } else {
-                console.log("I'm here")
                 var previousSavedInfo = JSON.parse(localStorage.getItem("previousSaved"));
                 previousSavedInfo[`${result.id}`] = previousVegan;
                 console.log(previousSavedInfo);
