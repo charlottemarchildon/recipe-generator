@@ -5,7 +5,6 @@ let clearSearchButton = document.getElementById("clearSearchButton")
 let veganButton = document.getElementById("vegan-button")
 
 var searchResults = {};
-localStorage.setItem("vegan-ID", "");
 
 recipeForm.addEventListener("submit", async function (event) {
 
@@ -213,14 +212,14 @@ function displayVeganData(data) {
                 return;
             }
 
-            function getLocalStorage(key) {
-                const storedData = localStorage.getItem(key);
-                return storedData ? JSON.parse(storedData) : null;
-            }
+            // function getLocalStorage(key) {
+            //     const storedData = localStorage.getItem(key);
+            //     return storedData ? JSON.parse(storedData) : null;
+            // }
 
-            function setLocalStorage(key, value) {
-                localStorage.setItem(key, JSON.stringify(value));
-            }
+            // function setLocalStorage(key, value) {
+            //     localStorage.setItem(key, JSON.stringify(value));
+            // }
 
             const existingData = getLocalStorage('userRecipes') || [];
 

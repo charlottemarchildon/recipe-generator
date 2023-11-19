@@ -13,17 +13,16 @@ function displayPrevious() {
     if (localStorage.getItem("previousSaved") !== null) {
         var previous = localStorage.getItem("previousSaved");
         previous = JSON.parse(previous);
+        var keyID = Object.keys(previous);
 
-        for (i = 0; i < storedID.length; i++) {
-            var index = storedID[i];
+        for (i = 0; i < keyID.length; i++) {
+            var index = keyID[i];
             var r = previous[index];
 
             if (localStorage.getItem("vegan-ID") !== null && JSON.parse(localStorage.getItem("vegan-ID").includes(index.toString()))) {
                 var previousCard = $("<li></li>");
                 previousCard.addClass("history-card");
-                console.log("im 3");
                 previousCard.text(r[1]);
-                console.log("im 2");
 
                 var image = r[2];
                 console.log(image);
