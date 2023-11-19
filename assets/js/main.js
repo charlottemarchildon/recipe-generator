@@ -2,9 +2,7 @@ let searchInput = document.querySelector("#search")
 let recipeForm = document.getElementById("recipe-form")
 let instructionButton = document.getElementById("instructionButton")
 let clearSearchButton = document.getElementById("clearSearchButton")
-let recipeCard = document.querySelector(".recipe");
-let userInput = document.querySelector(".typeahead");
-let recipePage = document.querySelector(".instruction");
+let veganButton = document.getElementById("vegan-button")
 
 var searchResults = {};
 
@@ -37,6 +35,31 @@ recipeForm.addEventListener("submit", async function (event) {
     fetchData();
 });
 
+veganButton.addEventListener("click", async function (event) {
+
+    event.preventDefault();
+
+    const url = 'https://the-vegan-recipes-db.p.rapidapi.com/';
+    const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+		'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
+	    }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const veganResult = await response.json();
+        console.log(veganResult);
+        displayVeganData(veganResult);
+    } catch (error) {
+        console.error(error);
+    }
+})
+
+// Displaying general recipe API
+
 function displayData(data) {
     let results = document.querySelector("#search-results");
     results.innerHTML = "";
@@ -63,7 +86,7 @@ function displayData(data) {
         let recipeId = data.d[i].id;
         idEl.textContent = recipeId;
         titleEl.textContent = `${data.d[i].Title}`;
-        recipeLink.href = `#`
+        recipeLink.href = `#recipe.html`
         let imageLink = `url(${data.d[i].Image})`
         imageLink = imageLink.replace("//", "https://");
         imageEl.style.backgroundImage = imageLink;
@@ -95,6 +118,7 @@ function displayData(data) {
 
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
+            localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
 
             if (clickedRecipeTitle !== null) {
 
@@ -128,6 +152,77 @@ function displayData(data) {
 
     }
 }
+
+// Displaying vegan API data
+
+function displayVeganData(data) {
+    let results = document.querySelector("#search-results");
+    results.innerHTML = "";
+    for (let i = 0; i < data.length; i++) {
+        let resultEl = document.createElement("div");
+        resultEl.className = "recipe";
+        let titleEl = document.createElement("p");
+        titleEl.className = "titleEl";
+        let idEl = document.createElement("p");
+        idEl.className = "idEl";
+        let imageEl = document.createElement("div");
+        imageEl.className = "recipeImage";
+        let recipeLink = document.createElement("a");
+        recipeLink.className = "recipeLink";
+
+        resultEl.appendChild(titleEl);
+        resultEl.appendChild(recipeLink)
+        recipeLink.appendChild(titleEl);
+        recipeLink.appendChild(imageEl);
+        recipeLink.appendChild(idEl);
+        results.appendChild(resultEl);
+
+        let recipeId = data[i].id;
+        idEl.textContent = recipeId;
+        titleEl.textContent = `${data[i].title}`;
+        recipeLink.href = `recipe.html`
+        let imageLink = `url(${data[i].image})`
+        imageEl.style.backgroundImage = imageLink;
+        imageEl.textContent = ""
+
+        // Storing recipe information
+
+        recipeLink.addEventListener("click", function () {
+
+            let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
+
+            localStorage.setItem("vegan-selected", recipeId);
+
+            if (clickedRecipeTitle !== null) {
+
+                clickedRecipeTitle = Number(clickedRecipeTitle[0]);
+
+            } else {
+                console.log("No numeric values found");
+                return;
+            }
+
+            function getLocalStorage(key) {
+                const storedData = localStorage.getItem(key);
+                return storedData ? JSON.parse(storedData) : null;
+            }
+
+            function setLocalStorage(key, value) {
+                localStorage.setItem(key, JSON.stringify(value));
+            }
+
+            const existingData = getLocalStorage('userRecipes') || [];
+
+            if (!existingData.includes(clickedRecipeTitle)) {
+                existingData.push(clickedRecipeTitle);
+                setLocalStorage('userRecipes', existingData);
+                console.log('Recipe title added to local storage:', clickedRecipeTitle);
+            } else {
+                console.log('Recipe title is already in local storage:', clickedRecipeTitle);
+            }
+        });
+}
+};
 
 document.addEventListener('DOMContentLoaded', async function () {
     const id = getLocalStorage("userRecipes");
