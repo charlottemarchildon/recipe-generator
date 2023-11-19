@@ -106,7 +106,8 @@ console.log(curSelect === storedID[0])
 console.log(generalRecipe !== null);
 console.log(typeof(curSelect));
 console.log(typeof(storedID[0]))
-if (generalRecipe !== null && Number(curSelect) === storedID.slice(-1)[0]) {
+
+if (generalRecipe !== null && storedID.includes(Number(curSelect))) {
 
     // Display general recipe details
 
