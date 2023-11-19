@@ -5,6 +5,7 @@ let clearSearchButton = document.getElementById("clearSearchButton")
 let veganButton = document.getElementById("vegan-button")
 
 var searchResults = {};
+localStorage.setItem("vegan-ID", "");
 
 recipeForm.addEventListener("submit", async function (event) {
 
@@ -119,7 +120,6 @@ function displayData(data) {
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
             localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
-            localStorage.setItem("vegan-ID", "");
 
             if (clickedRecipeTitle !== null) {
 
