@@ -37,6 +37,7 @@ if (generalRecipe !== null) {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+                'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
                 'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
             }
         };
@@ -44,6 +45,10 @@ if (generalRecipe !== null) {
         try {
             const response = await fetch(url, options);
             const result = await response.json();
+            
+            var previousVegan = [];
+
+            // Displaying vegan recipe data
         
             veganTitle = result.title;
             console.log(veganTitle)
@@ -77,9 +82,34 @@ if (generalRecipe !== null) {
                 insEl.text(ins);
                 $(`#steps`).append(insEl);
             };
+
+            // Locally storing vegan recipe information
+
+            previousVegan.push(result.id);
+            previousVegan.push(veganTitle);
+            previousVegan.push(veganImage);
+            previousVegan.push(veganIngredient);
+            previousVegan.push(veganFull);
+
+            previousInfo[`${result.id}`] = previousVegan;
+            localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
+        
+            if (localStorage.getItem("previousSaved") === null){
+                var previousSavedInfo = {};
+                previousSavedInfo[`${result.id}`] = previousVegan;
+                localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
+            } else {
+                var previousSavedInfo = JSON.parse(localStorage.getItem("previousSaved"));
+                previousSavedInfo[`${result.id}`] = previousVegan;
+                console.log(previousSavedInfo);
+                localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
+            }
+
         } catch (error) {
             console.error(error);
         }
     };
     fetchVeganInfo(veganID)
 }
+
+displayPrevious();

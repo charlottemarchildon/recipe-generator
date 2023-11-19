@@ -18,7 +18,7 @@ recipeForm.addEventListener("submit", async function (event) {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': 'c7274ee214msh7c69092222f1054p1d1942jsn85ff4436e42b',
+                'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
                 'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
             }
         };
@@ -44,6 +44,7 @@ veganButton.addEventListener("click", async function (event) {
 	method: 'GET',
 	headers: {
 		'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+		'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
 		'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
 	    }
     };
@@ -87,6 +88,7 @@ function displayData(data) {
         idEl.textContent = recipeId;
         titleEl.textContent = `${data.d[i].Title}`;
         recipeLink.href = `#recipe.html`
+        recipeLink.href = `recipe.html`
         let imageLink = `url(${data.d[i].Image})`
         imageLink = imageLink.replace("//", "https://");
         imageEl.style.backgroundImage = imageLink;
@@ -119,6 +121,7 @@ function displayData(data) {
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
             localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+            localStorage.setItem("currently-selected", recipeId);
 
             if (clickedRecipeTitle !== null) {
 
@@ -192,6 +195,17 @@ function displayVeganData(data) {
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
             localStorage.setItem("vegan-selected", recipeId);
+            localStorage.setItem("currently-selected", recipeId);
+
+            if (localStorage.getItem("vegan-ID") === null){
+                var vID = [];
+                vID.push(recipeId);
+                localStorage.setItem("vegan-ID", JSON.stringify(vID));
+            } else {
+                var vID = JSON.parse(localStorage.getItem("vegan-ID"));
+                vID.push(recipeId);
+                localStorage.setItem("vegan-ID", JSON.stringify(vID));
+            }
 
             if (clickedRecipeTitle !== null) {
 
@@ -210,6 +224,14 @@ function displayVeganData(data) {
             function setLocalStorage(key, value) {
                 localStorage.setItem(key, JSON.stringify(value));
             }
+            // function getLocalStorage(key) {
+            //     const storedData = localStorage.getItem(key);
+            //     return storedData ? JSON.parse(storedData) : null;
+            // }
+
+            // function setLocalStorage(key, value) {
+            //     localStorage.setItem(key, JSON.stringify(value));
+            // }
 
             const existingData = getLocalStorage('userRecipes') || [];
 
@@ -227,12 +249,14 @@ function displayVeganData(data) {
 document.addEventListener('DOMContentLoaded', async function () {
     const id = getLocalStorage("userRecipes");
 
-    for (let i = 0; i < id.length; i++) {
-        try {
-            const data = await fetchData(id[i]);
-            displayRecipe(data);
-        } catch (error) {
-            console.error(error);
+    if (id !== null) {
+        for (let i = 0; i < id.length; i++) {
+            try {
+                const data = await fetchData(id[i]);
+                displayRecipe(data);
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 });
@@ -260,7 +284,7 @@ function displayRecipe(data) {
     let recipeId = data.d[0].id;
     idEl.textContent = recipeId;
     titleEl.textContent = `${data.d[0].Title}hello`;
-    recipeLink.href = `#`;
+    recipeLink.href = `recipe.html`;
     let imageLink = `url(${data.d[0].Image})`;
     imageLink = imageLink.replace("//", "https://");
     imageEl.style.backgroundImage = imageLink;
@@ -295,6 +319,7 @@ clearSearchButton.addEventListener("click", function () {
         localStorage.setItem(key, JSON.stringify(value));
     }
     setLocalStorage("userRecipes", "")
+    localStorage.clear();
 })
 
 function getLocalStorage(key) {
