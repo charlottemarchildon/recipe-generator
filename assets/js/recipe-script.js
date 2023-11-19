@@ -18,29 +18,33 @@ function displayPrevious() {
             var index = storedID[i];
             var r = previous[index];
 
-            if (storedID in JSON.parse(localStorage.getItem(vID))) {
+            if (localStorage.getItem("vegan-ID") !== null && JSON.parse(localStorage.getItem("vegan-ID").includes(index.toString()))) {
+                var previousCard = $("<li></li>");
+                previousCard.addClass("history-card");
+                console.log("im 3");
+                previousCard.text(r[1]);
+                console.log("im 2");
+
+                var image = r[2];
+                console.log(image);
+                var previousImage = $("<img>");
+                previousCard.append(previousImage);
+                previousImage.attr("src", image);
+    
+                $(".history").append(previousCard);
+            } else {
                 var previousCard = $("<li></li>");
                 previousCard.addClass("history-card");
                 previousCard.text(r[1]);
-
-                var image = r[2];
+    
+                var image = r[2].substring(r[2].indexOf('(') + 1, r[2].lastIndexOf(')'));
+    
+                var previousImage = $("<img>");
                 previousCard.append(previousImage);
                 previousImage.attr("src", image);
     
                 $(".history").append(previousCard);
             }
-
-            var previousCard = $("<li></li>");
-            previousCard.addClass("history-card");
-            previousCard.text(r[1]);
-
-            var image = r[2].substring(r[2].indexOf('(') + 1, r[2].lastIndexOf(')'));
-
-            var previousImage = $("<img>");
-            previousCard.append(previousImage);
-            previousImage.attr("src", image);
-
-            $(".history").append(previousCard);
         }
     }
 }
@@ -95,7 +99,7 @@ if (generalRecipe !== null) {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+                'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
                 'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
             }
         };
@@ -148,6 +152,7 @@ if (generalRecipe !== null) {
             previousVegan.push(veganImage);
             previousVegan.push(veganIngredient);
             previousVegan.push(veganFull);
+            console.log(previousVegan);
 
             previousInfo[`${result.id}`] = previousVegan;
             localStorage.setItem("last-selected-info", JSON.stringify(previousInfo));
@@ -157,21 +162,11 @@ if (generalRecipe !== null) {
                 previousSavedInfo[`${result.id}`] = previousVegan;
                 localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
             } else {
+                console.log("I'm here")
                 var previousSavedInfo = JSON.parse(localStorage.getItem("previousSaved"));
                 previousSavedInfo[`${result.id}`] = previousVegan;
+                console.log(previousSavedInfo);
                 localStorage.setItem("previousSaved", JSON.stringify(previousSavedInfo));
-            }
-
-            // Saving veganIDs only
-
-            if (localStorage.getItem("vegan-ID") === null){
-                var vID = [];
-                vID.push(result.id);
-                localStorage.setItem("vegan-ID", JSON.stringify(vID));
-            } else {
-                var vID = JSON.parse(localStorage.getItem("vegan-ID"));
-                vID.push(result.id);
-                localStorage.setItem("previousSaved", JSON.stringify(vID));
             }
 
         } catch (error) {

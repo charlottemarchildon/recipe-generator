@@ -43,7 +43,7 @@ veganButton.addEventListener("click", async function (event) {
     const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+		'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
 		'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
 	    }
     };
@@ -119,6 +119,7 @@ function displayData(data) {
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
 
             localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+            localStorage.setItem("vegan-ID", "");
 
             if (clickedRecipeTitle !== null) {
 
@@ -193,6 +194,16 @@ function displayVeganData(data) {
 
             localStorage.setItem("vegan-selected", recipeId);
 
+            if (localStorage.getItem("vegan-ID") === null){
+                var vID = [];
+                vID.push(recipeId);
+                localStorage.setItem("vegan-ID", JSON.stringify(vID));
+            } else {
+                var vID = JSON.parse(localStorage.getItem("vegan-ID"));
+                vID.push(recipeId);
+                localStorage.setItem("previousSaved", JSON.stringify(vID));
+            }
+
             if (clickedRecipeTitle !== null) {
 
                 clickedRecipeTitle = Number(clickedRecipeTitle[0]);
@@ -227,12 +238,14 @@ function displayVeganData(data) {
 document.addEventListener('DOMContentLoaded', async function () {
     const id = getLocalStorage("userRecipes");
 
-    for (let i = 0; i < id.length; i++) {
-        try {
-            const data = await fetchData(id[i]);
-            displayRecipe(data);
-        } catch (error) {
-            console.error(error);
+    if (id !== null) {
+        for (let i = 0; i < id.length; i++) {
+            try {
+                const data = await fetchData(id[i]);
+                displayRecipe(data);
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 });
