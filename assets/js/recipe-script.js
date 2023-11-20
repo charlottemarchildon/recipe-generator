@@ -198,8 +198,13 @@ $(`.history-card`).on("click", function (e){
     localStorage.setItem("currently-selected", curSelect);
     var saved = JSON.parse(localStorage.getItem("previousSaved"));
     saved = saved[curSelect]
-    localStorage.setItem("general-selected", JSON.stringify(saved));
-    console.log(curSelect);
+
+    if (storedID.includes(Number(curSelect))) {
+        localStorage.setItem("general-selected", JSON.stringify(saved));
+    }
+    else {
+        localStorage.setItem("vegan-selected", curSelect)
+    } 
     window.location.href = "recipe.html";
     displayNow();
 });
