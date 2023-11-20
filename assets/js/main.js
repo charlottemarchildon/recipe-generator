@@ -236,6 +236,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
+// Function to display local stored recipe cards 
+
 function displayRecipe(data) {
     console.log("Loading here")
     let results = document.querySelector("#search-results");
@@ -281,6 +283,7 @@ function displayRecipe(data) {
     searchResults[`${recipeId}`].push(instructionList);
     console.log(searchResults);
 
+    // Updated currently selected to make sure we know which ID has been selected
 
     recipeLink.addEventListener("click", function () {
 
@@ -309,6 +312,8 @@ async function fetchData(id) {
         throw error;
     }
 }
+
+// Function to clear local storage
 
 clearSearchButton.addEventListener("click", function () {
     let results = document.querySelector("#search-results");
