@@ -132,7 +132,7 @@ function displayNow() {
             const options = {
                 method: 'GET',
                 headers: {
-                    'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
+                    'X-RapidAPI-Key': 'c1f14f8618msh36f1ddf20cd5458p1c6323jsn35b58a83ac20',
                     'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
                 }
             };

@@ -43,7 +43,7 @@ veganButton.addEventListener("click", async function (event) {
     const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
+		'X-RapidAPI-Key': `c1f14f8618msh36f1ddf20cd5458p1c6323jsn35b58a83ac20`,
 		'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
 	    }
     };
@@ -216,25 +216,6 @@ function displayVeganData(data) {
                 console.log("No numeric values found");
                 return;
             }
-
-            // function getLocalStorage(key) {
-            //     const storedData = localStorage.getItem(key);
-            //     return storedData ? JSON.parse(storedData) : null;
-            // }
-
-            // function setLocalStorage(key, value) {
-            //     localStorage.setItem(key, JSON.stringify(value));
-            // }
-
-        //     const existingData = getLocalStorage('userRecipes') || [];
-
-        //     if (!existingData.includes(clickedRecipeTitle)) {
-        //         existingData.push(clickedRecipeTitle);
-        //         setLocalStorage('userRecipes', existingData);
-        //         console.log('Recipe title added to local storage:', clickedRecipeTitle);
-        //     } else {
-        //         console.log('Recipe title is already in local storage:', clickedRecipeTitle);
-        //     }
         });
     }
 };
