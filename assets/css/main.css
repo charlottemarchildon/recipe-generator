@@ -152,7 +152,11 @@ nav {
   padding: 5px;
   align-items: center;
 }
-
+#main-display {
+  display: grid;
+  grid-template-rows: 65% 35%;
+  min-height: 100vh;
+}
 .recipeImage {
   background-repeat: no-repeat;
   background-size: cover;
