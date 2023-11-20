@@ -6,6 +6,8 @@ let veganButton = document.getElementById("vegan-button")
 
 var searchResults = {};
 
+// Function to fetch recipes related to input
+
 recipeForm.addEventListener("submit", async function (event) {
 
     event.preventDefault();
@@ -35,6 +37,8 @@ recipeForm.addEventListener("submit", async function (event) {
     fetchData();
 });
 
+// Function to fetch all vegan recipes when "Go Vegan" is selected
+
 veganButton.addEventListener("click", async function (event) {
 
     event.preventDefault();
@@ -60,7 +64,7 @@ veganButton.addEventListener("click", async function (event) {
     }
 })
 
-// Displaying general recipe API
+// Displaying general recipe API and store necessary information in local storage 
 
 function displayData(data) {
     let results = document.querySelector("#search-results");
@@ -122,6 +126,8 @@ function displayData(data) {
 
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
             console.log(recipeId);
+
+            // Store in local storage for extraction in recipe page
 
             localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
 
@@ -211,41 +217,6 @@ function displayVeganData(data) {
                 localStorage.setItem("vegan-ID", JSON.stringify(vID));
             }
 
-            if (clickedRecipeTitle !== null) {
-
-                clickedRecipeTitle = Number(clickedRecipeTitle[0]);
-
-            } else {
-                console.log("No numeric values found");
-                return;
-            }
-
-            function getLocalStorage(key) {
-                const storedData = localStorage.getItem(key);
-                return storedData ? JSON.parse(storedData) : null;
-            }
-
-            function setLocalStorage(key, value) {
-                localStorage.setItem(key, JSON.stringify(value));
-            }
-            // function getLocalStorage(key) {
-            //     const storedData = localStorage.getItem(key);
-            //     return storedData ? JSON.parse(storedData) : null;
-            // }
-
-            // function setLocalStorage(key, value) {
-            //     localStorage.setItem(key, JSON.stringify(value));
-            // }
-
-            const existingData = getLocalStorage('userRecipes') || [];
-
-            if (!existingData.includes(clickedRecipeTitle)) {
-                existingData.push(clickedRecipeTitle);
-                setLocalStorage('userRecipes', existingData);
-                console.log('Recipe title added to local storage:', clickedRecipeTitle);
-            } else {
-                console.log('Recipe title is already in local storage:', clickedRecipeTitle);
-            }
         });
     }
 };
@@ -264,6 +235,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 });
+
+// Function to display local stored recipe cards 
 
 function displayRecipe(data) {
     console.log("Loading here")
@@ -310,6 +283,7 @@ function displayRecipe(data) {
     searchResults[`${recipeId}`].push(instructionList);
     console.log(searchResults);
 
+    // Updated currently selected to make sure we know which ID has been selected
 
     recipeLink.addEventListener("click", function () {
 
@@ -338,6 +312,8 @@ async function fetchData(id) {
         throw error;
     }
 }
+
+// Function to clear local storage
 
 clearSearchButton.addEventListener("click", function () {
     let results = document.querySelector("#search-results");
