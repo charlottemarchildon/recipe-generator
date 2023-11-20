@@ -49,8 +49,8 @@ Learning material:
 - Modal button styles: https://getbootstrap.com/docs/4.0/components/buttons/
 
 ## Contact
-Tiffany Chan - github.com/tchan128
-Karina Li - github.com/karina-yuk
-Kevin Quach - github.com/quachies
-Charlotte Marchildon - github.com/charlottemarchildon
-Mohanad Saqr - github.com/mohanad-saqr
+- Tiffany Chan - github.com/tchan128
+- Karina Li - github.com/karina-yuk
+- Kevin Quach - github.com/quachies
+- Charlotte Marchildon - github.com/charlottemarchildon
+- Mohanad Saqr - github.com/mohanad-saqr
