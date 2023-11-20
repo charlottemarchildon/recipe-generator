@@ -76,7 +76,7 @@ function displayGeneral(recipe) {
         $(`#steps`).append(insEl);
     };
 }
-
+        
 function storeVegan (id, title, image, ing, instr) {
 
     var previousVegan = []; 
