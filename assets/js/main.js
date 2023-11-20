@@ -18,7 +18,7 @@ recipeForm.addEventListener("submit", async function (event) {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
+                'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
                 'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
             }
         };
@@ -45,6 +45,7 @@ veganButton.addEventListener("click", async function (event) {
 	headers: {
 		'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
 		'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
+		'X-RapidAPI-Key': `c1f14f8618msh36f1ddf20cd5458p1c6323jsn35b58a83ac20`,
 		'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
 	    }
     };
@@ -93,6 +94,7 @@ function displayData(data) {
         imageLink = imageLink.replace("//", "https://");
         imageEl.style.backgroundImage = imageLink;
         imageEl.textContent = ""
+        
 
         // Storing information of recipe
         // index 0 ID
@@ -119,8 +121,10 @@ function displayData(data) {
         recipeLink.addEventListener("click", function () {
 
             let clickedRecipeTitle = recipeLink.textContent.match(/\d+/g);
+            console.log(recipeId);
 
             localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+
             localStorage.setItem("currently-selected", recipeId);
 
             if (clickedRecipeTitle !== null) {
@@ -243,7 +247,7 @@ function displayVeganData(data) {
                 console.log('Recipe title is already in local storage:', clickedRecipeTitle);
             }
         });
-}
+    }
 };
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -262,6 +266,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 function displayRecipe(data) {
+    console.log("Loading here")
     let results = document.querySelector("#search-results");
     let resultEl = document.createElement("div");
     resultEl.className = "recipe";
@@ -283,12 +288,35 @@ function displayRecipe(data) {
 
     let recipeId = data.d[0].id;
     idEl.textContent = recipeId;
-    titleEl.textContent = `${data.d[0].Title}hello`;
+    titleEl.textContent = `${data.d[0].Title}`;
     recipeLink.href = `recipe.html`;
     let imageLink = `url(${data.d[0].Image})`;
     imageLink = imageLink.replace("//", "https://");
     imageEl.style.backgroundImage = imageLink;
     imageEl.textContent = "";
+
+    searchResults[`${recipeId}`] = [];
+
+    var ingredientList = JSON.stringify(data.d[0].Ingredients);
+    var parsedList = ingredientList.split(`,"`);
+
+    var instructionList = data.d[0].Instructions;
+    instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
+
+    searchResults[`${recipeId}`].push(recipeId);
+    searchResults[`${recipeId}`].push(`${data.d[0].Title}`);
+    searchResults[`${recipeId}`].push(imageLink);
+    searchResults[`${recipeId}`].push(parsedList);
+    searchResults[`${recipeId}`].push(instructionList);
+    console.log(searchResults);
+
+
+    recipeLink.addEventListener("click", function () {
+
+        localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+
+        localStorage.setItem("currently-selected", recipeId);
+    });
 }
 
 
@@ -297,7 +325,7 @@ async function fetchData(id) {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': 'c7274ee214msh7c69092222f1054p1d1942jsn85ff4436e42b',
+            'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
             'X-RapidAPI-Host': 'food-recipes-with-images.p.rapidapi.com'
         }
     };
