@@ -203,14 +203,3 @@ $(`.history-card`).on("click", function (e){
     window.location.href = "recipe.html";
     displayNow();
 });
-
-$(`.history-card`).on("click", function (e){
-    curSelect = e.target.id;
-    localStorage.setItem("currently-selected", curSelect);
-    var saved = JSON.parse(localStorage.getItem("previousSaved"));
-    saved = saved[curSelect]
-    localStorage.setItem("general-selected", JSON.stringify(saved));
-    console.log(curSelect);
-    window.location.href = "recipe.html";
-    displayNow();
-});
