@@ -13,7 +13,8 @@ HTML, CSS, JavaScript are utilized along with Bootstrap and jQuery. We used two 
 
 ## Screenshots
 Home page on load with no previously viewed recipes:
-![Home page on load with no previously viewed recipes](image.png)
+![image](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/c8426025-c112-4317-b114-de95b446144d)
+
 
 Home page on load with previously viewed recipes:
 ![Home page on load with previously viewed recipes](image-1.png)
