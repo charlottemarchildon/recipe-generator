@@ -15,27 +15,26 @@ HTML, CSS, JavaScript are utilized along with Bootstrap and jQuery. We used two 
 Home page on load with no previously viewed recipes:
 ![image](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/c8426025-c112-4317-b114-de95b446144d)
 
-
 Home page on load with previously viewed recipes:
-![Home page on load with previously viewed recipes](image-1.png)
+![image-1](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/23921734-3187-40d8-a393-a226e1bcd985)
 
 Home page after "Go Vegan!" option is selected:
-![Home page after "Go Vegan!" option is selected](image-2.png)
+![image-2](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/e2bc2293-f3a4-4be2-bb5c-122de4f2be0e)
 
 Recipe page (1/2):
-![Recipe page (1/2), displaying the photo and most of the ingredients list](image-3.png)
+![image-3](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/4058fdb3-f62c-4b41-ba82-89c60378c542)
 
 Recipe page (2/2):
-![Recipe page (2/2), displaying instructions and previously searched recipes](image-4.png)
+![image-4](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/46bd5988-b21d-436d-8a95-81e1458991ad)
 
 Login page:
-![Login and sign up buttons](image-5.png)
+![image-5](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/3674f075-f4e4-46ae-ab4f-b5c443843c80)
 
 Submit a recipe page:
-![Submit recipe page wikth multiple fields and file upload option](image-6.png)
+![image-6](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/51a3aecc-41af-4ce7-bbeb-bd906ca601ee)
 
 Contact footer:
-![Footer with would-be contact info](image-7.png)
+![image-7](https://github.com/charlottemarchildon/recipe-generator/assets/146043078/dbafff12-11b2-4f8e-8ac6-78de19cf4da9)
 
 ## Website Link
 https://charlottemarchildon.github.io/recipe-generator/main.html
