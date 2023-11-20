@@ -255,6 +255,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 function displayRecipe(data) {
+    console.log("Loading here")
     let results = document.querySelector("#search-results");
     let resultEl = document.createElement("div");
     resultEl.className = "recipe";
@@ -283,13 +284,28 @@ function displayRecipe(data) {
     imageEl.style.backgroundImage = imageLink;
     imageEl.textContent = "";
 
+    searchResults[`${recipeId}`] = [];
 
-    // recipeLink.addEventListener("click", function () {
+    var ingredientList = JSON.stringify(data.d[0].Ingredients);
+    var parsedList = ingredientList.split(`,"`);
 
-    //     localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+    var instructionList = data.d[0].Instructions;
+    instructionList = instructionList.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
 
-    //     localStorage.setItem("currently-selected", recipeId);
-    // });
+    searchResults[`${recipeId}`].push(recipeId);
+    searchResults[`${recipeId}`].push(`${data.d[0].Title}`);
+    searchResults[`${recipeId}`].push(imageLink);
+    searchResults[`${recipeId}`].push(parsedList);
+    searchResults[`${recipeId}`].push(instructionList);
+    console.log(searchResults);
+
+
+    recipeLink.addEventListener("click", function () {
+
+        localStorage.setItem("general-selected", JSON.stringify(searchResults[recipeId]));
+
+        localStorage.setItem("currently-selected", recipeId);
+    });
 }
 
 
