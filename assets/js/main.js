@@ -47,9 +47,7 @@ veganButton.addEventListener("click", async function (event) {
     const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '3d22f37fb7msh06f140df3e4ecc2p150513jsn883326b6b241',
-		'X-RapidAPI-Key': '506f3bfb28mshd6b6cc887b6b7a4p1b6358jsn7e3e532ba270',
-		'X-RapidAPI-Key': `c1f14f8618msh36f1ddf20cd5458p1c6323jsn35b58a83ac20`,
+		'X-RapidAPI-Key': 'c7274ee214msh7c69092222f1054p1d1942jsn85ff4436e42b',
 		'X-RapidAPI-Host': 'the-vegan-recipes-db.p.rapidapi.com'
 	    }
     };
